@@ -223,6 +223,8 @@ class Component extends DCLogic {
       hamburgerTransform: open ? 'rotate(180deg) scale(0)' : 'rotate(0deg) scale(1)',
       closeTransform: open ? 'rotate(0deg) scale(1)' : 'rotate(-180deg) scale(0)',
       infoRef: this.infoRef,
+      onInfoOpen: this.onInfoOpen,
+      onInfoClose: this.onInfoClose,
       infoCaretTransform: this.state.infoOpen ? 'rotate(180deg)' : 'rotate(0deg)',
       infoMenuOpacity: this.state.infoOpen ? 1 : 0,
       infoMenuPointer: this.state.infoOpen ? 'auto' : 'none',

@@ -22,13 +22,13 @@
 <div id="top" style="position: relative; background: #4557A4; font-family: 'Inter', system-ui, sans-serif; min-height: 100vh;">
   <dc-import name="Header" hint-size="100%,160px"></dc-import>
 
-  <section style="padding: clamp(150px, 16vw, 200px) 6vw clamp(50px, 6vw, 80px);">
+  <section style="max-width: 1240px; margin: 0 auto; padding: clamp(150px, 16vw, 200px) 6vw clamp(50px, 6vw, 80px);">
     <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #9FD8E0; margin-bottom: 14px;">Onze partners</div>
     <h1 style="margin: 0 0 18px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(38px, 6vw, 84px); line-height: 1.02; letter-spacing: -0.02em; color: #BFF7F7;">Partners &amp; sponsoren</h1>
     <p style="margin: 0; max-width: 620px; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.6; color: #DCEAFF;">Dankzij deze partners kunnen we van Lustrum Albertus Magnus XXVI een onvergetelijke week maken.</p>
   </section>
 
-  <section style="padding: 0 6vw clamp(80px, 9vw, 130px);">
+  <section style="max-width: 1240px; margin: 0 auto; padding: 0 6vw clamp(80px, 9vw, 130px);">
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px;">
       <sc-for list="{{ partners }}" as="p" hint-placeholder-count="2">
         <div style="border-radius: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); overflow: hidden;">

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="./page-transition.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: #4557A4; overflow-x: hidden; }
+  a { color: #BFF7F7; }
+  a:hover { color: #FFFFFF; }
+  image-slot::part(frame) { background: transparent !important; }
+</style>
+</helmet>
+<div id="top" style="position: relative; background: #4557A4; font-family: 'Inter', system-ui, sans-serif; min-height: 100vh;">
+  <dc-import name="Header" hint-size="100%,160px"></dc-import>
+
+  <section style="padding: clamp(150px, 16vw, 200px) 6vw clamp(50px, 6vw, 80px);">
+    <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #9FD8E0; margin-bottom: 14px;">Onze partners</div>
+    <h1 style="margin: 0 0 18px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(38px, 6vw, 84px); line-height: 1.02; letter-spacing: -0.02em; color: #BFF7F7;">Partners &amp; sponsoren</h1>
+    <p style="margin: 0; max-width: 620px; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.6; color: #DCEAFF;">Dankzij deze partners kunnen we van Lustrum Albertus Magnus XXVI een onvergetelijke week maken.</p>
+  </section>
+
+  <section style="padding: 0 6vw clamp(80px, 9vw, 130px);">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px;">
+      <sc-for list="{{ partners }}" as="p" hint-placeholder-count="2">
+        <div style="border-radius: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); overflow: hidden;">
+          <div style="background: #FFFFFF; padding: 28px; display: flex; align-items: center; justify-content: center; height: 120px;">
+            <image-slot id="{{ p.id }}" src="{{ p.src }}" fit="contain" shape="rect" placeholder="Logo" style="width: 100%; height: 100%;"></image-slot>
+          </div>
+          <div style="padding: 18px 20px 22px;">
+            <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 18px; color: #FFFFFF; margin-bottom: 6px;">{{ p.name }}</div>
+            <div style="font-size: 14px; line-height: 1.55; color: #DCEAFF;">{{ p.desc }}</div>
+          </div>
+        </div>
+      </sc-for>
+      <a href="Contact.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; border-radius: 16px; background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.3); padding: 40px 24px; text-decoration: none; min-height: 214px;" style-hover="background: rgba(255,255,255,0.08);">
+        <i class="ph ph-handshake" style="font-size: 30px; color: #BFF7F7;"></i>
+        <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 18px; color: #FFFFFF;">Sponsor worden?</div>
+        <div style="font-size: 14px; color: #DCEAFF;">Neem contact op</div>
+      </a>
+    </div>
+  </section>
+
+  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      partners: [
+        { id: 'partner-heineken', name: 'Heineken', desc: 'Biersponsor van Lustrum Albertus Magnus XXVI.', src: '' },
+        { id: 'partner-stelz', name: 'Stelz', desc: 'Partner op het gebied van hard drinks tijdens de lustrumweek.', src: 'uploads/Stelz_Hard_drinks_logo_Main_9866ecfd-40ab-4e05-bf3f-3a5d23247571_1280x.png.webp' },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>

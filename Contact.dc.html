@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="./page-transition.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: #4557A4; overflow-x: hidden; }
+  a { color: #BFF7F7; }
+  a:hover { color: #FFFFFF; }
+</style>
+</helmet>
+<div id="top" style="position: relative; background: #4557A4; font-family: 'Inter', system-ui, sans-serif; min-height: 100vh;">
+  <dc-import name="Header" hint-size="100%,160px"></dc-import>
+
+  <section style="padding: clamp(150px, 16vw, 200px) 6vw clamp(50px, 6vw, 80px);">
+    <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #9FD8E0; margin-bottom: 14px;">Contact</div>
+    <h1 style="margin: 0 0 18px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(38px, 6vw, 84px); line-height: 1.02; letter-spacing: -0.02em; color: #BFF7F7;">Neem contact op</h1>
+    <p style="margin: 0; max-width: 620px; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.6; color: #DCEAFF;">Vragen over het lustrum, sponsoring of een van de commissies? De lustrumcommissie helpt je graag verder.</p>
+  </section>
+
+  <section style="padding: 0 6vw clamp(50px, 6vw, 80px);">
+    <div style="display: flex; flex-wrap: wrap; gap: 18px; max-width: 900px;">
+      <a href="mailto:lustrum@albertusmagnus.nl" style="flex: 1 1 260px; display: flex; align-items: center; gap: 16px; padding: 22px; border-radius: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); text-decoration: none;" style-hover="background: rgba(255,255,255,0.1);">
+        <i class="ph ph-envelope-simple" style="font-size: 26px; color: #BFF7F7;"></i>
+        <div>
+          <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; color: #FFFFFF; margin-bottom: 2px;">E-mail</div>
+          <div style="font-size: 15px; color: #DCEAFF;">lustrum@albertusmagnus.nl</div>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/lustrumalbertus/" style="flex: 1 1 260px; display: flex; align-items: center; gap: 16px; padding: 22px; border-radius: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); text-decoration: none;" style-hover="background: rgba(255,255,255,0.1);">
+        <i class="ph ph-instagram-logo" style="font-size: 26px; color: #BFF7F7;"></i>
+        <div>
+          <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; color: #FFFFFF; margin-bottom: 2px;">Instagram</div>
+          <div style="font-size: 15px; color: #DCEAFF;">@lustrumalbertus</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section style="padding: clamp(40px, 5vw, 70px) 6vw;">
+    <h2 style="margin: 0 0 28px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(28px, 3.2vw, 42px); color: #BFF7F7;">Lustrumbestuur</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 22px;">
+      <sc-for list="{{ board }}" as="p" hint-placeholder-count="6">
+        <div>
+          <image-slot id="{{ p.id }}" shape="rounded" radius="14" placeholder="Foto" style="width: 100%; aspect-ratio: 1; margin-bottom: 12px;"></image-slot>
+          <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; color: #FFFFFF; font-size: 16px;">{{ p.name }}</div>
+          <div style="font-size: 14px; color: #9FD8E0;">{{ p.role }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding: clamp(20px, 4vw, 50px) 6vw clamp(80px, 9vw, 130px);">
+    <h2 style="margin: 0 0 10px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(28px, 3.2vw, 42px); color: #BFF7F7;">Commissies</h2>
+    <p style="margin: 0 0 20px; max-width: 620px; font-size: 16px; line-height: 1.6; color: #DCEAFF;">De parttime commissies die het lustrum mogelijk maken.</p>
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 18px 22px; margin-bottom: 30px; border-radius: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); max-width: 720px;">
+      <p style="margin: 0; flex: 1 1 260px; font-size: 15px; line-height: 1.55; color: #DCEAFF;">Wil je je kandidaat-vrijwilligersinschrijving (KVI) inleveren voor een commissie? Dat kan via de Albertus App.</p>
+      <div style="display: flex; gap: 10px; flex: 0 0 auto;">
+        <a href="https://apps.apple.com/au/app/albertus-magnus/id1591068864" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; background: #24356F; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600;" style-hover="background: #2C3C86;">
+          <i class="ph ph-apple-logo"></i> App Store
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=nl.albertus.app&hl=nl&pli=1" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; background: #24356F; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600;" style-hover="background: #2C3C86;">
+          <i class="ph ph-google-play-logo"></i> Google Play
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      board: [
+        { id: 'board-1', name: 'Naam Naam', role: 'Voorzitter' },
+        { id: 'board-2', name: 'Naam Naam', role: 'Secretaris' },
+        { id: 'board-3', name: 'Naam Naam', role: 'Penningmeester' },
+        { id: 'board-4', name: 'Naam Naam', role: 'Commissaris Intern' },
+        { id: 'board-5', name: 'Naam Naam', role: 'Commissaris Extern' },
+        { id: 'board-6', name: 'Naam Naam', role: 'Commissaris PR' },
+      ],
+      committees: [
+        { name: 'Feestcommissie', members: [{ id: 'fc-1', name: 'Naam Naam' }, { id: 'fc-2', name: 'Naam Naam' }, { id: 'fc-3', name: 'Naam Naam' }, { id: 'fc-4', name: 'Naam Naam' }] },
+        { name: 'Reiscommissie', members: [{ id: 'rc-1', name: 'Naam Naam' }, { id: 'rc-2', name: 'Naam Naam' }, { id: 'rc-3', name: 'Naam Naam' }] },
+        { name: 'Sponsorcommissie', members: [{ id: 'sc-1', name: 'Naam Naam' }, { id: 'sc-2', name: 'Naam Naam' }, { id: 'sc-3', name: 'Naam Naam' }] },
+        { name: 'PR-commissie', members: [{ id: 'pr-1', name: 'Naam Naam' }, { id: 'pr-2', name: 'Naam Naam' }] },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>

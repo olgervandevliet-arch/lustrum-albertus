@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="./page-transition.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+  html { -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: #4557A4; overflow-x: hidden; }
+  a { color: #BFF7F7; }
+  a:hover { color: #FFFFFF; }
+  ::-webkit-scrollbar { width: 0; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 8px; }
+  [data-video-track]::-webkit-scrollbar { display: none; }
+  @media (max-width: 980px) {
+    [data-cd-break] { display: block !important; flex-basis: 100% !important; width: 100%; height: 0; }
+    [data-title-break] { display: block !important; }
+    [data-hero-title] { font-size: clamp(30px, 7.5vw, 44px) !important; }
+    [data-flap-tile] { width: clamp(40px, 8.5vw, 60px) !important; height: clamp(64px, 14vw, 96px) !important; font-size: clamp(32px, 7.6vw, 50px) !important; }
+    [data-counter] { width: 96vw !important; }
+    [data-letter="S"] { font-size: 70vw !important; left: -6vw !important; top: 8vh !important; }
+    [data-letter="R"] { font-size: 70vw !important; left: 62vw !important; top: 8vh !important; }
+    [data-letter="M"] { font-size: 74vw !important; left: 130vw !important; top: 8vh !important; }
+    [data-letter="U1"] { font-size: 68vw !important; left: 28vw !important; top: 44vh !important; }
+    [data-letter="T"] { font-size: 64vw !important; left: 96vw !important; top: 46vh !important; }
+    [data-letter="U2"] { font-size: 66vw !important; left: 160vw !important; top: 44vh !important; }
+    [data-letter="L"] { font-size: 72vw !important; left: -34vw !important; top: 76vh !important; }
+  }
+</style>
+</helmet>
+<div id="top" style="position: relative; background: #4557A4; font-family: 'Inter', system-ui, sans-serif;">
+  <sc-if value="{{ showPreloader }}" hint-placeholder-val="{{ true }}">
+    <div data-preloader="1" style="position: fixed; inset: 0; z-index: 200; background: #4557A4; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+      <div data-preloader-text="0" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(28px, 3.6vw, 54px); color: #BFF7F7; overflow: hidden;">Albertus Magnus</div>
+      <div data-preloader-text="1" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(28px, 3.6vw, 54px); color: #BFF7F7; overflow: hidden; opacity: 0;">Sinds 1896</div>
+      <div data-preloader-text="2" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(28px, 3.6vw, 54px); color: #BFF7F7; overflow: hidden; opacity: 0;">XXVI Lustrum</div>
+    </div>
+  </sc-if>
+  <dc-import name="Header" show-announcement="{{ showAnnouncement }}" hint-size="100%,160px"></dc-import>
+
+  <section data-screen-label="Hero" data-hero-wrap="1" style="position: relative; height: 300vh;">
+    <div data-hero-stage="1" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #BFF7F7;">
+      <div data-gradient="1" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; background: linear-gradient(180deg, #3B4C99 0%, #4C5FA8 30%, #6B87C0 55%, #9CC4DE 78%, #BFF7F7 100%); will-change: transform;">
+        <div data-letters="1" style="position: absolute; inset: 0;">
+
+
+          <span data-letter="S" data-dx="0.15" data-rot="-9" data-speed="1.2" data-sway="-50" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 12.6vw; top: 18.6vh; font-size: 35vw; transform: translateY(-160vh) rotate(-9deg)">S</span>
+
+          <span data-letter="R" data-dx="1" data-rot="-4" data-speed="1.35" data-sway="-45" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 46vw; top: 30.8vh; font-size: 35vw; transform: translateY(-160vh) rotate(-4deg)">R</span>
+
+          <span data-letter="M" data-dx="1.3" data-rot="-5" data-speed="1.1" data-sway="-55" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 1531px; top: 339px; font-size: 37vw; transform: translateY(-160vh) rotate(-5deg)">M</span>
+        <span data-letter="U1" data-dx="-0.9" data-rot="5" data-speed="0.62" data-sway="45" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 3.6vw; top: 56.2vh; font-size: 34vw; transform: translateY(-160vh) rotate(5deg)">U</span><span data-letter="T" data-dx="-0.1" data-rot="7" data-speed="0.78" data-sway="55" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 28.7vw; top: 51.1vh; font-size: 32vw; transform: translateY(-160vh) rotate(7deg)">T</span><span data-letter="U2" data-dx="1.1" data-rot="8" data-speed="0.68" data-sway="50" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 61.3vw; top: 52.1vh; font-size: 33vw; transform: translateY(-160vh) rotate(8deg)">U</span><span data-letter="L" data-dx="-1.2" data-rot="-6" data-speed="1.45" data-sway="-60" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: -3.9vw; top: 18vh; font-size: 36vw; transform: translateY(-160vh) rotate(-6deg)">L</span>
+
+        </div>
+      </div>
+
+      <div data-counter="1" style="position: absolute; left: 50%; bottom: 14vh; transform: translate(-50%, 0); opacity: 1; width: min(1160px, 90vw); will-change: transform;">
+        <div style="text-align: center; margin-bottom: clamp(36px, 8vw, 80px);">
+          <div data-hero-title="1" style="font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(28px, 3.2vw, 48px); letter-spacing: 0.02em; color: #24356F; overflow: hidden;"><span data-title-word="1">Lustrum</span><span data-title-break="1"> </span><span data-title-word="1">Albertus</span><span data-title-break="1"> </span><span data-title-word="1">XXVI</span></div>
+        </div>
+        <div data-countdown-grid="1" style="display: flex; align-items: flex-start; justify-content: center; flex-wrap: wrap; row-gap: 14px; gap: clamp(4px, 1vw, 14px); position: relative">
+          <div data-cd-group="days" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+            <div style="display: flex; justify-content: center; gap: clamp(5px, 0.7vw, 10px);">
+              <div data-flap-tile="1" style="width: clamp(34px, 5.6vw, 88px); height: clamp(54px, 9.4vw, 146px); font-family: 'Inter Tight', sans-serif; font-size: clamp(26px, 4.8vw, 78px);"><dc-import name="Flap" value="{{ d0 }}" instant="{{ revealing }}" style="display: block; width: 100%; height: 100%;" hint-size="100%,100%"></dc-import></div>
+              <div data-flap-tile="1" style="width: clamp(34px, 5.6vw, 88px); height: clamp(54px, 9.4vw, 146px); font-family: 'Inter Tight', sans-serif; font-size: clamp(26px, 4.8vw, 78px);"><dc-import name="Flap" value="{{ d1 }}" instant="{{ revealing }}" style="display: block; width: 100%; height: 100%;" hint-size="100%,100%"></dc-import></div>
+              <div data-flap-tile="1" style="width: clamp(34px, 5.6vw, 88px); height: clamp(54px, 9.4vw, 146px); font-family: 'Inter Tight', sans-serif; font-size: clamp(26px, 4.8vw, 78px);"><dc-import name="Flap" value="{{ d2 }}" instant="{{ revealing }}" style="display: block; width: 100%; height: 100%;" hint-size="100%,100%"></dc-import></div>
+            </div>
+            <div style="font-size: clamp(12px, 1.05vw, 16px); font-weight: 500; color: #2C3C86;">Dagen</div>
+          </div>
+          <div data-cd-sep="1" style="height: clamp(54px, 9.4vw, 146px); display: flex; flex-direction: column; justify-content: center; gap: clamp(10px, 1.4vw, 22px); font-size: 0; color: #3B4C99;"><span style="display: block; width: clamp(5px, 0.5vw, 8px); height: clamp(5px, 0.5vw, 8px); border-radius: 50%; background: #3B4C99;"></span><span style="display: block; width: clamp(5px, 0.5vw, 8px); height: clamp(5px, 0.5vw, 8px); border-radius: 50%; background: #3B4C99;"></span></div>
+          <div data-cd-break="1" style="display: none;"></div>
+          <div data-cd-group="hours" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+            <div style="display: flex; justify-content: center; gap: clamp(5px, 0.7vw, 10px);">
+              <div data-flap-tile="1" style="width: clamp(34px, 5.6vw, 88px); height: clamp(54px, 9.4vw, 146px); font-family: 'Inter Tight', sans-serif; font-size: clamp(26px, 4.8vw, 78px);"><dc-import name="Flap" value="{{ h0 }}" instant="{{ revealing }}" style="display: block; width: 100%; height: 100%;" hint-size="100%,100%"></dc-import></div>
+              <div data-flap-tile="1" style="width: clamp(34px, 5.6vw, 88px); height: clamp(54px, 9.4vw, 146px); font-family: 'Inter Tight', sans-serif; font-size: clamp(26px, 4.8vw, 78px);"><dc-import name="Flap" value="{{ h1 }}" instant="{{ revealing }}" style="display: block; width: 100%; height: 100%;" hint-size="100%,100%"></dc-import></div>
+            </div>
+            <div style="font-size: clamp(12px, 1.05vw, 16px); font-weight: 500; color: #2C3C86;">Uren</div>
+          </div>
+          <div data-cd-sep="1" style="height: clamp(54px, 9.4vw, 146px); display: flex; flex-direction: column; justify-content: center; gap: clamp(10px, 1.4vw, 22px); font-size: 0; color: #3B4C99;"><span style="display: block; width: clamp(5px, 0.5vw, 8px); height: clamp(5px, 0.5vw, 8px); border-radius: 50%; background: #3B4C99;"></span><span style="display: block; width: clamp(5px, 0.5vw, 8px); height: clamp(5px, 0.5vw, 8px); border-radius: 50%; background: #3B4C99;"></span></div>
+          <div data-cd-group="minutes" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+            <div style="display: flex; justify-content: center; gap: clamp(5px, 0.7vw, 10px);">
+              <div data-flap-tile="1" style="width: clamp(34px, 5.6vw, 88px); height: clamp(54px, 9.4vw, 146px); font-family: 'Inter Tight', sans-serif; font-size: clamp(26px, 4.8vw, 78px);"><dc-import name="Flap" value="{{ m0 }}" instant="{{ revealing }}" style="display: block; width: 100%; height: 100%;" hint-size="100%,100%"></dc-import></div>
+              <div data-flap-tile="1" style="width: clamp(34px, 5.6vw, 88px); height: clamp(54px, 9.4vw, 146px); font-family: 'Inter Tight', sans-serif; font-size: clamp(26px, 4.8vw, 78px);"><dc-import name="Flap" value="{{ m1 }}" instant="{{ revealing }}" style="display: block; width: 100%; height: 100%;" hint-size="100%,100%"></dc-import></div>
+            </div>
+            <div style="font-size: clamp(12px, 1.05vw, 16px); font-weight: 500; color: #2C3C86;">Minuten</div>
+          </div>
+          <div data-cd-sep="1" style="height: clamp(54px, 9.4vw, 146px); display: flex; flex-direction: column; justify-content: center; gap: clamp(10px, 1.4vw, 22px); font-size: 0; color: #3B4C99;"><span style="display: block; width: clamp(5px, 0.5vw, 8px); height: clamp(5px, 0.5vw, 8px); border-radius: 50%; background: #3B4C99;"></span><span style="display: block; width: clamp(5px, 0.5vw, 8px); height: clamp(5px, 0.5vw, 8px); border-radius: 50%; background: #3B4C99;"></span></div>
+          <div data-cd-group="seconds" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+            <div style="display: flex; justify-content: center; gap: clamp(5px, 0.7vw, 10px);">
+              <div data-flap-tile="1" style="width: clamp(34px, 5.6vw, 88px); height: clamp(54px, 9.4vw, 146px); font-family: 'Inter Tight', sans-serif; font-size: clamp(26px, 4.8vw, 78px);"><dc-import name="Flap" value="{{ s0 }}" instant="{{ revealing }}" style="display: block; width: 100%; height: 100%;" hint-size="100%,100%"></dc-import></div>
+              <div data-flap-tile="1" style="width: clamp(34px, 5.6vw, 88px); height: clamp(54px, 9.4vw, 146px); font-family: 'Inter Tight', sans-serif; font-size: clamp(26px, 4.8vw, 78px);"><dc-import name="Flap" value="{{ s1 }}" instant="{{ revealing }}" style="display: block; width: 100%; height: 100%;" hint-size="100%,100%"></dc-import></div>
+            </div>
+            <div style="font-size: clamp(12px, 1.05vw, 16px); font-weight: 500; color: #2C3C86;">Seconden</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Laatste video's" style="position: relative; background: #4557A4; padding: clamp(70px, 9vw, 130px) 0 clamp(60px, 7vw, 110px);">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 6vw; margin-bottom: clamp(34px, 4vw, 60px);">
+      <h2 style="margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(44px, 7vw, 104px); line-height: 1; letter-spacing: -0.025em; color: #BFF7F7;">Laatste video’s</h2>
+      <div style="display: flex; gap: 10px; flex: 0 0 auto;">
+        <button type="button" aria-label="Vorige" onClick="{{ scrollPrev }}" style="display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #BFF7F7; cursor: pointer; font-size: 20px;" style-hover="background: rgba(255,255,255,0.1);">
+          <i class="ph ph-arrow-left"></i>
+        </button>
+        <button type="button" aria-label="Volgende" onClick="{{ scrollNext }}" style="display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #BFF7F7; cursor: pointer; font-size: 20px;" style-hover="background: rgba(255,255,255,0.1);">
+          <i class="ph ph-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+    <div ref="{{ trackRef }}" data-video-track="1" style="display: flex; gap: clamp(16px, 1.6vw, 26px); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 6vw; scrollbar-width: none; padding: 0 6vw 24px;">
+      <sc-for list="{{ videos }}" as="v" hint-placeholder-count="4">
+        <article style="scroll-snap-align: start; flex: 0 0 auto; width: clamp(280px, 26vw, 400px); padding: 12px 12px 6px; border-radius: 14px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.14);" style-hover="background: rgba(255,255,255,0.18);">
+          <div style="position: relative; aspect-ratio: 16 / 11; border-radius: 8px; overflow: hidden; background-color: #6E86C4; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.14) 0 12px, rgba(255,255,255,0) 12px 24px);">
+            <div style="position: absolute; left: 12px; bottom: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.72);">videostill 16:10</div>
+            <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 54px; height: 54px; border-radius: 50%; background: #BFF7F7; display: grid; place-items: center; box-shadow: 0 14px 30px -18px rgba(10,20,50,0.7);">
+              <span style="display: block; width: 0; height: 0; margin-left: 4px; border-left: 15px solid #3B4C99; border-top: 10px solid transparent; border-bottom: 10px solid transparent;"></span>
+            </div>
+          </div>
+          <div style="padding: 12px 2px 10px; font-family: 'Inter Tight', sans-serif; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #E8F9FF;">{{ v.title }}</div>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;targetDate&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2027-08-18T20:00:00&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Countdown&quot;},&quot;pinScreens&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:4,&quot;step&quot;:0.25,&quot;unit&quot;:&quot; schermen&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Scroll&quot;},&quot;showAnnouncement&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Header&quot;},&quot;showPreloader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preloader&quot;}}">
+class Component extends DCLogic {
+  state = { d: 365, h: 7, m: 50, s: 31, revealing: false };
+  trackRef = React.createRef();
+
+  scrollPrev = () => {
+    const el = this.trackRef.current;
+    if (el) el.scrollBy({ left: -(el.clientWidth * 0.8), behavior: 'smooth' });
+  };
+
+  scrollNext = () => {
+    const el = this.trackRef.current;
+    if (el) el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' });
+  };
+
+  target() {
+    const t = Date.parse(this.props.targetDate ?? '2027-08-18T20:00:00');
+    return Number.isNaN(t) ? Date.now() + 365 * 864e5 : t;
+  }
+
+  tick = () => {
+    const diff = Math.max(0, this.target() - Date.now());
+    const total = Math.floor(diff / 1000);
+    this.setState({
+      d: Math.floor(total / 86400),
+      h: Math.floor(total / 3600) % 24,
+      m: Math.floor(total / 60) % 60,
+      s: total % 60,
+    });
+  };
+
+  componentDidMount() {
+    this.tick();
+    this.timer = setInterval(this.tick, 1000);
+    this.waitForGsap();
+    this.waitForGsapPreloader();
+  }
+
+  waitForGsapPreloader(tries = 0) {
+    if (window.gsap && window.SplitText) {
+      return document.fonts && document.fonts.ready
+        ? document.fonts.ready.then(() => this.runPreloader())
+        : this.runPreloader();
+    }
+    if (tries > 120) return;
+    setTimeout(() => this.waitForGsapPreloader(tries + 1), 60);
+  }
+
+  runPreloader() {
+    const el = document.querySelector('[data-preloader]');
+    if (!el || !(this.props.showPreloader ?? true)) return;
+    // alleen bij het allereerste bezoek aan de site
+    let seen = false;
+    try { seen = localStorage.getItem('albertus-visited') === '1'; localStorage.setItem('albertus-visited', '1'); } catch (e) {}
+    if (seen) {
+      el.remove();
+      if (this.startLetterIntro) this.startLetterIntro();
+      return;
+    }
+    const gsap = window.gsap;
+    const texts = Array.from(el.querySelectorAll('[data-preloader-text]'));
+    const tl = gsap.timeline({
+      onComplete: () => {
+        // letters beginnen te vallen zodra het gordijn begint weg te schuiven, niet pas als het klaar is
+        if (this.startLetterIntro) this.startLetterIntro();
+        gsap.to(el, {
+          yPercent: 100,
+          duration: 0.9,
+          ease: 'power4.inOut',
+          onComplete: () => el.remove(),
+        });
+      },
+    });
+    texts.forEach((t, i) => {
+      const split = new window.SplitText(t, { type: 'chars' });
+      gsap.set(t, { opacity: 1 });
+      gsap.set(split.chars, { opacity: 0, yPercent: 120 });
+      tl.to(split.chars, { opacity: 1, yPercent: 0, duration: 0.4, stagger: 0.02, ease: 'power2.out' });
+      tl.to(split.chars, { opacity: 0, yPercent: -120, duration: 0.3, stagger: 0.015, ease: 'power2.in' }, '+=0.5');
+      if (i < texts.length - 1) tl.set(t, { opacity: 0 });
+    });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    clearTimeout(this.safety);
+    if (this.st) this.st.forEach((t) => t.kill());
+    if (this.intro) this.intro.kill();
+    if (this.lenis) {
+      if (this.rafTick) window.gsap.ticker.remove(this.rafTick);
+      this.lenis.destroy();
+      this.lenis = null;
+    }
+  }
+
+  waitForGsap(tries = 0) {
+    if (window.gsap && window.ScrollTrigger) return this.initMotion();
+    if (tries > 120) return;
+    setTimeout(() => this.waitForGsap(tries + 1), 60);
+  }
+
+  initMotion() {
+    const gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+
+    // trage, smooth scroll (lenis) gekoppeld aan ScrollTrigger
+    if (window.Lenis && !this.lenis) {
+      this.lenis = new window.Lenis({ duration: 0.9, smoothWheel: true, wheelMultiplier: 1 });
+      this.lenis.on('scroll', window.ScrollTrigger.update);
+      this.rafTick = (time) => this.lenis.raf(time * 1000);
+      gsap.ticker.add(this.rafTick);
+      gsap.ticker.lagSmoothing(0);
+    }
+    const wrap = document.querySelector('[data-hero-wrap]');
+    // onderste letters (op het scherm) vallen eerst, dan pas de hogere — volgorde op verticale positie, niet links-rechts
+    const letters = Array.from(document.querySelectorAll('[data-letter]')).sort(
+      (a, b) => b.getBoundingClientRect().top - a.getBoundingClientRect().top
+    );
+    const counter = document.querySelector('[data-counter]');
+    if (!wrap || !letters.length) return;
+
+    const screens = Math.max(0.5, Math.min(6, this.props.pinScreens ?? 1));
+    wrap.style.height = (screens + 1) * 100 + 'vh';
+    // vangnet: zorg dat de countdown en de letters altijd zichtbaar worden, ook als de intro-animatie faalt
+    gsap.set(counter, { opacity: 1, y: 0 });
+    const armSafety = () => {
+      clearTimeout(this.safety);
+      this.safety = setTimeout(() => {
+        gsap.set(counter, { opacity: 1 });
+        letters.forEach((el) => gsap.set(el, { y: restY(el), x: 0, rotate: Number(el.dataset.rot) || 0 }));
+      }, 1500);
+    };
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const preloaderActive = document.querySelector('[data-preloader]') && (this.props.showPreloader ?? true);
+    // rustpositie: alle letters krijgen dezelfde extra val mee naar onder (zodat ze wel op elkaar blijven vallen/stapelen),
+    // zo groot dat de diepste letter tot 160px onder de onderkant van de viewport reikt
+    const perLetterNeed = (el) => window.innerHeight - 120 - (el.offsetTop + (el.offsetHeight || 300));
+    const extraDrop = Math.max(0, ...letters.map(perLetterNeed));
+    const restY = () => extraDrop;
+    letters.forEach((el) => {
+      if (preloaderActive && !reduced) {
+        gsap.set(el, { x: 0, y: () => -(window.innerHeight * 0.85 + (el.offsetHeight || 300)), rotate: (Number(el.dataset.rot) || 0) - 14, transformOrigin: '50% 50%' });
+      } else {
+        gsap.set(el, { x: 0, y: restY(el), transformOrigin: '50% 50%' });
+      }
+    });
+    gsap.set(counter, { xPercent: -50, x: 0, y: 0, opacity: 1, transformOrigin: '50% 50%' });
+
+    const startLetterIntro = () => {
+      if (reduced) return;
+      try {
+        // letters vallen van boven, landen gestapeld op elkaar met een kleine settle
+        // één voor één invallen, met echte impact: elke letter stuitert en duwt de stapel eronder in
+        this.intro = gsap.timeline({
+          onComplete: () =>
+            letters.forEach((el) => gsap.set(el, { y: restY(el), x: 0, rotate: Number(el.dataset.rot) || 0 })),
+        });
+        const step = 0.08;
+        letters.forEach((el, i) => {
+          const rot = Number(el.dataset.rot) || 0;
+          const sway = Number(el.dataset.sway) || 0;
+          const h = () => el.offsetHeight || 300;
+          const rest = restY(el);
+          const t = i * step;
+
+          // valt van boven, stuitert zijwaarts naar links of rechts bij impact, zoals een vallende SVG-letter
+          this.intro.fromTo(
+            el,
+            { y: () => -(window.innerHeight * 0.85 + h()), x: 0, rotate: rot - 14, immediateRender: true },
+            { y: rest, rotate: rot, duration: 0.68, ease: 'power2.in' },
+            t
+          );
+          this.intro
+            .to(el, { x: sway, y: rest - h() * 0.1, rotate: rot + sway / 5, duration: 0.16, ease: 'power2.out' }, t + 0.46)
+            .to(el, { x: sway * 0.4, y: rest, rotate: rot + sway / 12, duration: 0.15, ease: 'power2.in' }, t + 0.62)
+            .to(el, { x: 0, rotate: rot, duration: 0.22, ease: 'power2.out' }, t + 0.77);
+        });
+        this.intro.fromTo(
+          counter,
+          { y: 70, opacity: 0.999 },
+          { y: 0, opacity: 1, duration: 1.05, ease: 'power3.out' },
+          letters.length * step + 0.15
+        );
+      } catch (e) {
+        letters.forEach((el) => gsap.set(el, { y: restY(el), x: 0, rotate: Number(el.dataset.rot) || 0 }));
+        gsap.set(counter, { y: 0, opacity: 1 });
+      }
+    };
+
+    // letters vallen pas als de preloader weg is (of meteen als er geen preloader is) — het vangnet wacht mee tot dat moment
+    if (preloaderActive) {
+      this.startLetterIntro = () => {
+        armSafety();
+        startLetterIntro();
+      };
+    } else {
+      armSafety();
+      startLetterIntro();
+    }
+
+    // scroll: alles schuift omhoog uit beeld terwijl het beeld stil blijft staan
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: wrap, start: 'top top', end: 'bottom bottom', scrub: 0.3 },
+    });
+    letters.forEach((el, i) => {
+      const speed = Number(el.dataset.speed) || 1;
+      const rot = Number(el.dataset.rot) || 0;
+      // vaste richting per letter: linkse letters (L, U) naar links, rechtse (R, U, M) naar rechts, S/T vooral verticaal
+      const dx = Number(el.dataset.dx) || 0;
+      gsap.set(el, { transformOrigin: '50% 50%' });
+      tl.to(el, { yPercent: -(160 + speed * 480), scale: 1 + speed * 0.35, ease: 'none' }, 0);
+      tl.to(
+        el,
+        {
+          x: () => window.innerWidth * dx * 1.6,
+          rotate: rot + (dx >= 0 ? 13 : -12),
+          ease: 'power1.in',
+        },
+        0.22
+      );
+    });
+    // gradient en countdown gaan mee omhoog, maar duidelijk minder ver dan de letters
+    // countdown blijft grotendeels onderaan, komt maar een klein stukje omhoog en wordt iets groter
+    tl.to(counter, { y: -60, scale: 1.08, ease: 'none' }, 0);
+
+    // titel verschijnt in één keer op een vast scrollpunt (met een korte gsap pop-animatie), en verdwijnt weer in één keer bij terugscrollen
+    const title = document.querySelector('[data-hero-title]');
+    const setupTitleSplit = () => {
+      const split = window.SplitText ? new window.SplitText(title, { type: 'chars' }) : null;
+      const chars = split ? split.chars : [title];
+      gsap.set(chars, { opacity: 0, yPercent: 120 });
+      let shown = false;
+      ScrollTrigger.create({
+        trigger: wrap,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          const pastPoint = self.progress > 0.62;
+          if (pastPoint === shown) return;
+          shown = pastPoint;
+          gsap.killTweensOf(chars);
+          if (pastPoint) gsap.to(chars, { opacity: 1, yPercent: 0, duration: 0.4, stagger: 0.02, ease: 'power2.out' });
+          else gsap.to(chars, { opacity: 0, yPercent: 120, duration: 0.2, stagger: 0.01, ease: 'power1.in' });
+        },
+      });
+    };
+    if (title) {
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(setupTitleSplit);
+      else setupTitleSplit();
+    }
+
+    // gradient beweegt gelijk op met de letters mee omhoog, en staat ook in rust al iets hoger
+    const gradient = document.querySelector('[data-gradient]');
+    if (gradient) tl.fromTo(gradient, { yPercent: -6 }, { yPercent: -70, ease: 'none' }, 0);
+
+    this.st = window.ScrollTrigger.getAll();
+  }
+
+  renderVals() {
+    const p = (n, len) => String(n).padStart(len, '0');
+    const d = p(Math.min(999, this.state.d), 3);
+    const h = p(this.state.h, 2);
+    const m = p(this.state.m, 2);
+    const s = p(this.state.s, 2);
+    return {
+      showAnnouncement: this.props.showAnnouncement ?? true,
+      showPreloader: this.props.showPreloader ?? true,
+      trackRef: this.trackRef,
+      scrollPrev: this.scrollPrev,
+      scrollNext: this.scrollNext,
+      revealing: this.state.revealing,
+      d0: d[0], d1: d[1], d2: d[2],
+      h0: h[0], h1: h[1],
+      m0: m[0], m1: m[1],
+      s0: s[0], s1: s[1],
+      videos: [
+        { title: 'Thema bekendmaking' },
+        { title: 'Kleuren bekendmaking' },
+        { title: 'Paketten bekendmaking' },
+        { title: 'Thema bekendmaking' },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>

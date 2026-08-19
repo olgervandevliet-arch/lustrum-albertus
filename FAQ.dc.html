@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="./page-transition.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+  body { margin: 0; background: #4557A4; overflow-x: hidden; }
+  a { color: #BFF7F7; }
+  a:hover { color: #FFFFFF; }
+</style>
+</helmet>
+<div id="top" style="position: relative; background: #4557A4; font-family: 'Inter', system-ui, sans-serif; min-height: 100vh;">
+  <dc-import name="Header" hint-size="100%,160px"></dc-import>
+
+  <section style="padding: clamp(150px, 16vw, 200px) 6vw clamp(50px, 6vw, 80px);">
+    <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #9FD8E0; margin-bottom: 14px;">Vragen &amp; antwoorden</div>
+    <h1 style="margin: 0 0 18px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(38px, 6vw, 84px); line-height: 1.02; letter-spacing: -0.02em; color: #BFF7F7;">Veelgestelde vragen</h1>
+    <p style="margin: 0; max-width: 620px; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.6; color: #DCEAFF;">Staat je vraag er niet bij? Neem contact op met de lustrumcommissie.</p>
+  </section>
+
+  <section style="padding: 0 6vw clamp(80px, 9vw, 130px);">
+    <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="8">
+        <div style="border-radius: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); overflow: hidden;">
+          <button type="button" onClick="{{ f.toggle }}" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 22px; background: transparent; border: 0; cursor: pointer; text-align: left; color: #BFF7F7; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: clamp(16px, 1.6vw, 19px);">
+            <span>{{ f.q }}</span>
+            <i class="ph ph-plus" style="flex: 0 0 auto; font-size: 20px; transition: transform 0.25s ease; transform: {{ f.iconTransform }};"></i>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 22px 22px; font-size: 16px; line-height: 1.6; color: #DCEAFF;">{{ f.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { open: 0 };
+
+  toggle(i) {
+    this.setState((s) => ({ open: s.open === i ? -1 : i }));
+  }
+
+  renderVals() {
+    const items = [
+      { q: 'Wanneer is de lustrumweek?', a: 'De lustrumweek XXVI vindt plaats in augustus 2027. De exacte data volgen zodra het definitieve programma bekend is — houd de countdown op de homepage in de gaten.' },
+      { q: 'Wie mag er mee naar het lustrum?', a: 'Alle leden van Albertus Magnus zijn welkom. Voor sommige onderdelen, zoals de wintersportreis, geldt een beperkt aantal plaatsen.' },
+      { q: 'Wat kost deelname?', a: 'De prijzen per onderdeel worden per activiteit gecommuniceerd via de vereniging en onze Instagram. Voor de lustrumweek zelf komt er een apart ticketsysteem.' },
+      { q: 'Hoe kom ik aan een ticket?', a: 'Tickets voor losse activiteiten en de lustrumweek worden via de vereniging verkocht. Zodra verkoop opent, laten we dit via alle kanalen weten.' },
+      { q: 'Is er een dresscode tijdens het gala?', a: 'Voor het voorjaarsgala geldt een chique dresscode. Meer details volgen dichter bij de datum.' },
+      { q: 'Kan ik me aanmelden als vrijwilliger of commissielid?', a: 'Zeker — neem contact op met de lustrumcommissie via de contactpagina. We zijn regelmatig op zoek naar enthousiaste leden voor de verschillende commissies.' },
+      { q: 'Waar vindt de lustrumweek plaats?', a: 'De locatie wordt binnenkort bekendgemaakt op de Terrein-pagina, inclusief plattegrond en bereikbaarheid.' },
+      { q: 'Wie kan ik benaderen met sponsorvragen?', a: 'Voor samenwerkingen en sponsoring kun je terecht bij de sponsorcommissie — de contactgegevens vind je op de contactpagina.' },
+    ];
+    return {
+      faqs: items.map((it, i) => ({
+        q: it.q,
+        a: it.a,
+        open: this.state.open === i,
+        iconTransform: this.state.open === i ? 'rotate(45deg)' : 'rotate(0deg)',
+        toggle: () => this.toggle(i),
+      })),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

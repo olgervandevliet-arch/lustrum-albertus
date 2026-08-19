@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="./page-transition.js"></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+  body { margin: 0; background: #4557A4; overflow-x: hidden; }
+  a { color: #BFF7F7; }
+  a:hover { color: #FFFFFF; }
+</style>
+</helmet>
+<div id="top" style="position: relative; background: linear-gradient(180deg, #3B4C99 0%, #4557A4 55%, #4557A4 100%); font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; display: flex; flex-direction: column;">
+  <dc-import name="Header" hint-size="100%,160px"></dc-import>
+  <section style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 160px 6vw 100px;">
+    <i class="ph ph-sparkle" style="font-size: 40px; color: #BFF7F7; margin-bottom: 22px;"></i>
+    <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: #9FD8E0; margin-bottom: 16px;">Thema &amp; Informatie</div>
+    <h1 style="margin: 0 0 18px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(40px, 7vw, 96px); line-height: 1; letter-spacing: -0.02em; color: #BFF7F7;">Coming soon</h1>
+    <p style="margin: 0 0 30px; max-width: 520px; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.6; color: #DCEAFF;">Het thema van Lustrum Albertus Magnus XXVI wordt binnenkort bekendgemaakt. Houd deze pagina en onze Instagram in de gaten.</p>
+    <a href="https://www.instagram.com/lustrumalbertus/" style="display: inline-flex; align-items: center; gap: 8px; color: #FFFFFF; text-decoration: underline; text-underline-offset: 3px; font-weight: 600;">
+      <i class="ph ph-instagram-logo"></i> Volg ons op Instagram
+    </a>
+  </section>
+  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+</div>
+
+</x-dc>
+</body>
+</html>

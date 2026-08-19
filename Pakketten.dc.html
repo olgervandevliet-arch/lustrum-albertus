@@ -17,6 +17,10 @@
   body { margin: 0; background: #4557A4; overflow-x: hidden; }
   a { color: #BFF7F7; }
   a:hover { color: #FFFFFF; }
+  [data-package-grid] { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  @media (min-width: 901px) {
+    [data-package-grid] { grid-template-columns: repeat(4, 1fr); }
+  }
 </style>
 </helmet>
 <div id="top" style="position: relative; background: #4557A4; font-family: 'Inter', system-ui, sans-serif; min-height: 100vh;">
@@ -28,15 +32,8 @@
     <p style="margin: 0; max-width: 700px; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.65; color: #DCEAFF;">Deze KEI-week zijn de spaarpakketten bekendgemaakt en kan het sparen voor het 26e Lustrum officieel beginnen! Kies het pakket dat bij je past en geef je keuze door via de link onderaan deze pagina.</p>
   </section>
 
-  <section style="padding: 0 6vw clamp(20px, 3vw, 30px);">
-    <div style="max-width: 760px; display: flex; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.7; color: #DCEAFF;">
-      <p style="margin: 0;">Om de kosten voor het Lustrum te spreiden, hebben wij vijf verschillende spaarpakketten samengesteld, zodat er voor ieder wat passends tussen zit. De drie reguliere pakketten zijn: Bierbedelaar, Muntenraper en Prinspils. Daarnaast is er voor de ouderejaars een ouderejaarspakket samengesteld en voor senioren een seniorenpakket.</p>
-      <p style="margin: 0;">Ieder regulier spaarpakket bestaat uit een passe-partout, een bepaald aantal munten en lustrumgadgets. Een passe-partout geeft toegang tot alle dagen van het Lustrum en de overige lustrumactiviteiten. Op de passe-partout van de reguliere pakketten ontvang je 15% korting ten opzichte van de losse ticketprijs. Daarnaast ontvang je, afhankelijk van het gekozen pakket, korting op de munten die je tijdens het Lustrum kunt besteden — hoe groter het pakket, hoe hoger de korting per munt. Munten die tijdens het Lustrum zelf worden aangeschaft, worden tegen het volledige tarief verkocht.</p>
-    </div>
-  </section>
-
   <section style="padding: clamp(20px, 3vw, 40px) 6vw clamp(30px, 4vw, 50px);">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1160px;">
+    <div data-package-grid="1" style="display: grid; gap: 20px; max-width: 1160px;">
       <sc-for list="{{ packages }}" as="p" hint-placeholder-count="4">
         <div style="border-radius: 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); padding: 28px 26px; display: flex; flex-direction: column;">
           <div style="font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 24px; color: #BFF7F7; margin-bottom: 4px;">{{ p.name }}</div>
@@ -55,6 +52,13 @@
           </div>
         </div>
       </sc-for>
+    </div>
+  </section>
+
+  <section style="padding: 0 6vw clamp(20px, 3vw, 30px);">
+    <div style="max-width: 760px; display: flex; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.7; color: #DCEAFF;">
+      <p style="margin: 0;">Om de kosten voor het Lustrum te spreiden, hebben wij vijf verschillende spaarpakketten samengesteld, zodat er voor ieder wat passends tussen zit. De drie reguliere pakketten zijn: Bierbedelaar, Muntenraper en Prinspils. Daarnaast is er voor de ouderejaars een ouderejaarspakket samengesteld en voor senioren een seniorenpakket.</p>
+      <p style="margin: 0;">Ieder regulier spaarpakket bestaat uit een passe-partout, een bepaald aantal munten en lustrumgadgets. Een passe-partout geeft toegang tot alle dagen van het Lustrum en de overige lustrumactiviteiten. Op de passe-partout van de reguliere pakketten ontvang je 15% korting ten opzichte van de losse ticketprijs. Daarnaast ontvang je, afhankelijk van het gekozen pakket, korting op de munten die je tijdens het Lustrum kunt besteden — hoe groter het pakket, hoe hoger de korting per munt. Munten die tijdens het Lustrum zelf worden aangeschaft, worden tegen het volledige tarief verkocht.</p>
     </div>
   </section>
 

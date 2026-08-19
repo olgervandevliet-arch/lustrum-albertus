@@ -17,6 +17,10 @@
   body { margin: 0; background: #4557A4; overflow-x: hidden; }
   a { color: #BFF7F7; }
   a:hover { color: #FFFFFF; }
+  [data-board-grid] { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  @media (min-width: 700px) {
+    [data-board-grid] { grid-template-columns: repeat(4, 1fr); }
+  }
 </style>
 </helmet>
 <div id="top" style="position: relative; background: #4557A4; font-family: 'Inter', system-ui, sans-serif; min-height: 100vh;">
@@ -49,11 +53,11 @@
 
   <section style="padding: clamp(40px, 5vw, 70px) 6vw;">
     <h2 style="margin: 0 0 28px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(28px, 3.2vw, 42px); color: #BFF7F7;">Lustrumbestuur</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 22px;">
+    <div data-board-grid="1" style="display: grid; gap: 22px;">
       <sc-for list="{{ board }}" as="p" hint-placeholder-count="8">
-        <div>
-          <div style="width: 100%; aspect-ratio: 1; margin-bottom: 12px; border-radius: 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); display: flex; align-items: center; justify-content: center;">
-            <i class="ph ph-user" style="font-size: 32px; color: #9FD8E0;"></i>
+        <div style="padding: 12px 12px 14px; border-radius: 14px; background: rgba(103,123,192,0.16); border: 1px solid rgba(103,123,192,0.4);">
+          <div style="width: 100%; aspect-ratio: 1; margin-bottom: 10px; border-radius: 8px; overflow: hidden;">
+            <img src="{{ p.photo }}" alt="{{ p.name }}" style="width: 100%; height: 100%; object-fit: cover; object-position: center 15%; transform: scale(1.6); transform-origin: center 18%; display: block;" />
           </div>
           <div style="font-family: 'Inter Tight', sans-serif; font-weight: 600; color: #FFFFFF; font-size: 16px;">{{ p.name }}</div>
           <div style="font-size: 14px; color: #9FD8E0;">{{ p.role }}</div>
@@ -87,14 +91,14 @@ class Component extends DCLogic {
   renderVals() {
     return {
       board: [
-        { id: 'board-1', name: 'Chloé Groeneveld', role: 'Praeses' },
-        { id: 'board-2', name: 'Frédérique Leenman', role: 'Abactis' },
-        { id: 'board-3', name: 'Rens Loos', role: 'Fiscus 1' },
-        { id: 'board-4', name: 'Floris Bijma', role: 'Fiscus 2' },
-        { id: 'board-5', name: 'Nick Snoeren', role: 'Fiscus 3' },
-        { id: 'board-6', name: 'Bas Sauer', role: 'Vice-Praeses' },
-        { id: 'board-7', name: 'Julia Buning', role: 'Assesor' },
-        { id: 'board-8', name: 'Noor Leeuwenburgh', role: 'Procurator' },
+        { id: 'board-1', name: 'Chloé Groeneveld', role: 'Praeses', photo: 'uploads/Chloe.jpg' },
+        { id: 'board-2', name: 'Frédérique Leenman', role: 'Abactis', photo: 'uploads/Frédérique.jpg' },
+        { id: 'board-3', name: 'Rens Loos', role: 'Fiscus 1', photo: 'uploads/Rens.jpg' },
+        { id: 'board-4', name: 'Floris Bijma', role: 'Fiscus 2', photo: 'uploads/Floris.jpg' },
+        { id: 'board-5', name: 'Nick Snoeren', role: 'Fiscus 3', photo: 'uploads/Nick.jpg' },
+        { id: 'board-6', name: 'Bas Sauer', role: 'Vice-Praeses', photo: 'uploads/Bas.jpg' },
+        { id: 'board-7', name: 'Julia Buning', role: 'Assesor', photo: 'uploads/Julia.jpg' },
+        { id: 'board-8', name: 'Noor Leeuwenburgh', role: 'Procurator', photo: 'uploads/Noor.jpg' },
       ],
       committees: [
         { name: 'Feestcommissie', members: [{ id: 'fc-1', name: 'Naam Naam' }, { id: 'fc-2', name: 'Naam Naam' }, { id: 'fc-3', name: 'Naam Naam' }, { id: 'fc-4', name: 'Naam Naam' }] },

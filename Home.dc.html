@@ -30,18 +30,29 @@
      vertrouwen, anders lopen "Lustrum Albertus XXVI" op desktop aan elkaar */
   [data-title-break] { display: inline-block; width: 0.32em; }
   @media (max-width: 980px) {
-    [data-cd-break] { display: block !important; flex-basis: 100% !important; width: 100%; height: 0; }
     [data-title-break] { display: block !important; }
     [data-hero-title] { font-size: clamp(30px, 7.5vw, 44px) !important; }
-    [data-flap-tile] { width: clamp(40px, 8.5vw, 60px) !important; height: clamp(64px, 14vw, 96px) !important; font-size: clamp(32px, 7.6vw, 50px) !important; }
+    [data-flap-tile] { width: clamp(24px, 5.8vw, 60px) !important; height: clamp(38px, 9.5vw, 96px) !important; font-size: clamp(18px, 4.8vw, 50px) !important; }
     [data-counter] { width: 96vw !important; }
-    [data-letter="S"] { font-size: 70vw !important; left: -6vw !important; top: 8vh !important; }
-    [data-letter="R"] { font-size: 70vw !important; left: 62vw !important; top: 8vh !important; }
-    [data-letter="M"] { font-size: 74vw !important; left: 130vw !important; top: 8vh !important; }
-    [data-letter="U1"] { font-size: 68vw !important; left: 28vw !important; top: 44vh !important; }
-    [data-letter="T"] { font-size: 64vw !important; left: 96vw !important; top: 46vh !important; }
-    [data-letter="U2"] { font-size: 66vw !important; left: 160vw !important; top: 44vh !important; }
-    [data-letter="L"] { font-size: 72vw !important; left: -34vw !important; top: 76vh !important; }
+    [data-countdown-grid] { gap: clamp(3px, 0.7vw, 14px) !important; }
+    [data-cd-group] { gap: 6px !important; }
+    [data-letter="S"] { font-size: 66vw !important; left: -6vw !important; top: 8vh !important; }
+    [data-letter="M"] { font-size: 58vw !important; left: 10vw !important; top: 6vh !important; }
+    [data-letter="R"] { font-size: 62vw !important; left: 46vw !important; top: 10vh !important; }
+    [data-letter="U1"] { font-size: 58vw !important; left: -4vw !important; top: 42vh !important; }
+    [data-letter="T"] { font-size: 52vw !important; left: 40vw !important; top: 44vh !important; }
+    [data-letter="U2"] { font-size: 50vw !important; left: 30vw !important; top: 46vh !important; }
+    [data-letter="L"] { font-size: 64vw !important; left: -8vw !important; top: 74vh !important; }
+    [data-counter-glass] {
+      display: block;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(20,30,70,0.42), rgba(20,30,70,0.28));
+      border: 1px solid rgba(255,255,255,0.16);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+      padding: 18px 10px;
+    }
   }
 </style>
 </helmet>
@@ -65,7 +76,7 @@
 
           <span data-letter="R" data-dx="1" data-rot="-4" data-speed="1.35" data-sway="-45" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 46vw; top: 30.8vh; font-size: 35vw; transform: translateY(-160vh) rotate(-4deg)">R</span>
 
-          <span data-letter="M" data-dx="1.3" data-rot="-5" data-speed="1.1" data-sway="-55" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 1531px; top: 339px; font-size: 37vw; transform: translateY(-160vh) rotate(-5deg)">M</span>
+          <span data-letter="M" data-dx="1.3" data-rot="-5" data-speed="1.1" data-sway="-55" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 72vw; top: 20vh; font-size: 37vw; transform: translateY(-160vh) rotate(-5deg)">M</span>
         <span data-letter="U1" data-dx="-0.9" data-rot="5" data-speed="0.62" data-sway="45" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 3.6vw; top: 56.2vh; font-size: 34vw; transform: translateY(-160vh) rotate(5deg)">U</span><span data-letter="T" data-dx="-0.1" data-rot="7" data-speed="0.78" data-sway="55" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 28.7vw; top: 51.1vh; font-size: 32vw; transform: translateY(-160vh) rotate(7deg)">T</span><span data-letter="U2" data-dx="1.1" data-rot="8" data-speed="0.68" data-sway="50" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: 61.3vw; top: 52.1vh; font-size: 33vw; transform: translateY(-160vh) rotate(8deg)">U</span><span data-letter="L" data-dx="-1.2" data-rot="-6" data-speed="1.45" data-sway="-60" style="position: absolute; font-family: 'Inter Tight', sans-serif; font-weight: 800; line-height: 0.74; color: #BFF7F7; will-change: transform; left: -3.9vw; top: 18vh; font-size: 36vw; transform: translateY(-160vh) rotate(-6deg)">L</span>
 
         </div>
@@ -75,6 +86,7 @@
         <div style="text-align: center; margin-bottom: clamp(36px, 8vw, 80px);">
           <div data-hero-title="1" style="font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(28px, 3.2vw, 48px); letter-spacing: 0.02em; color: #24356F; overflow: hidden;"><span data-title-word="1">Lustrum</span><span data-title-break="1"> </span><span data-title-word="1">Albertus</span><span data-title-break="1"> </span><span data-title-word="1">XXVI</span></div>
         </div>
+        <div data-counter-glass="1">
         <div data-countdown-grid="1" style="display: flex; align-items: flex-start; justify-content: center; flex-wrap: wrap; row-gap: 14px; gap: clamp(4px, 1vw, 14px); position: relative">
           <div data-cd-group="days" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
             <div style="display: flex; justify-content: center; gap: clamp(5px, 0.7vw, 10px);">
@@ -235,9 +247,9 @@ class Component extends DCLogic {
         };
         const reset = () => {
           gsap.killTweensOf(split.chars);
-          gsap.set(split.chars, { opacity: 0, yPercent: 120 });
+          gsap.to(split.chars, { opacity: 0, yPercent: 120, duration: 0.2, stagger: 0.01, ease: 'power1.in' });
         };
-        window.ScrollTrigger.create({ trigger: el, start: 'top 85%', onEnter: play, onEnterBack: play, onLeave: reset, onLeaveBack: reset });
+        window.ScrollTrigger.create({ trigger: el, start: 'top 85%', end: 'top 85%', onEnter: play, onLeaveBack: reset });
       });
     };
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(setup);

@@ -35,14 +35,8 @@
           <span style="font-family: 'Inter Tight', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -0.01em; line-height: 1;">XXVI</span>
         </a>
         <nav style="display: flex; align-items: center; gap: clamp(8px, 1.6vw, 22px); flex: {{ navFlex }}; min-width: 0; justify-content: center; opacity: {{ navOpacity }}; white-space: nowrap; overflow: visible;">
-          <div onMouseEnter="{{ onInfoOpen }}" onMouseLeave="{{ onInfoClose }}" style="position: relative;">
+          <div ref="{{ infoRef }}" onMouseEnter="{{ onInfoOpen }}" onMouseLeave="{{ onInfoClose }}" style="position: relative;">
             <span style="display: flex; align-items: center; gap: 4px; color: #FFFFFF; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500; cursor: default;">Informatie <i class="ph ph-caret-down" style="font-size: 12px; transition: transform 0.2s ease; transform: {{ infoCaretTransform }};"></i></span>
-            <div style="position: absolute; top: 28px; left: 50%; transform: translateX(-50%); min-width: 170px; border-radius: 14px; background: linear-gradient(180deg, rgba(20,30,70,0.9), rgba(20,30,70,0.85)); border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(20px); padding: 8px; display: flex; flex-direction: column; opacity: {{ infoMenuOpacity }}; pointer-events: {{ infoMenuPointer }}; transition: opacity 0.2s ease; z-index: 5;">
-              <a href="Pakketten.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Pakketten</a>
-              <a href="Programma.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Programma</a>
-              <a href="Thema.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Thema</a>
-              <a href="Terrein.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Terrein</a>
-            </div>
           </div>
           <a href="Partners.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500;" style-hover="opacity: 0.75;">Partners</a>
           <a href="FAQ.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500;" style-hover="opacity: 0.75;">FAQ</a>
@@ -81,6 +75,12 @@
         </a>
       </div>
     </div>
+    <div onMouseEnter="{{ onInfoOpen }}" onMouseLeave="{{ onInfoClose }}" style="position: fixed; left: {{ infoMenuLeft }}; top: {{ infoMenuTop }}; transform: translateX(-50%) {{ infoMenuSlide }}; min-width: 170px; border-radius: 14px; background: linear-gradient(180deg, rgba(20,30,70,0.94), rgba(20,30,70,0.9)); border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(20px); padding: 8px; display: flex; flex-direction: column; opacity: {{ infoMenuOpacity }}; pointer-events: {{ infoMenuPointer }}; transition: opacity 0.2s ease, transform 0.2s ease; z-index: 90;">
+      <a href="Pakketten.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Pakketten</a>
+      <a href="Programma.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Programma</a>
+      <a href="Thema.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Thema</a>
+      <a href="Terrein.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Terrein</a>
+    </div>
   </div>
 </div>
 
@@ -92,7 +92,8 @@ class Component extends DCLogic {
     this.navRef = React.createRef();
     this.listRef = React.createRef();
     this.barRef = React.createRef();
-    this.state = { closed: false, open: false, hidden: false, barHeight: 0, compact: false, infoOpen: false, mobileInfoOpen: false };
+    this.infoRef = React.createRef();
+    this.state = { closed: false, open: false, hidden: false, barHeight: 0, compact: false, infoOpen: false, mobileInfoOpen: false, infoMenuLeft: '0px', infoMenuTop: '0px' };
     this.lastScrollY = 0;
   }
 
@@ -136,7 +137,16 @@ class Component extends DCLogic {
 
   isMobile = () => window.matchMedia('(hover: none), (max-width: 900px)').matches;
 
-  onInfoOpen = () => this.setState({ infoOpen: true });
+  onInfoOpen = () => {
+    // submenu rendert los van de pill (die overflow: hidden heeft voor de mobiele accordion-animatie),
+    // dus positie wordt gemeten en als position: fixed toegepast zodat hij nooit wordt afgesneden
+    const r = this.infoRef.current ? this.infoRef.current.getBoundingClientRect() : null;
+    this.setState({
+      infoOpen: true,
+      infoMenuLeft: (r ? r.left + r.width / 2 : 0) + 'px',
+      infoMenuTop: (r ? r.bottom + 12 : 0) + 'px',
+    });
+  };
   onInfoClose = () => this.setState({ infoOpen: false });
   toggleMobileInfo = () => {
     this.setState((s) => ({ mobileInfoOpen: !s.mobileInfoOpen }), () => this.animate());
@@ -212,9 +222,13 @@ class Component extends DCLogic {
       headerTransform: this.state.hidden ? 'translateY(-130%)' : 'translateY(0)',
       hamburgerTransform: open ? 'rotate(180deg) scale(0)' : 'rotate(0deg) scale(1)',
       closeTransform: open ? 'rotate(0deg) scale(1)' : 'rotate(-180deg) scale(0)',
+      infoRef: this.infoRef,
       infoCaretTransform: this.state.infoOpen ? 'rotate(180deg)' : 'rotate(0deg)',
       infoMenuOpacity: this.state.infoOpen ? 1 : 0,
       infoMenuPointer: this.state.infoOpen ? 'auto' : 'none',
+      infoMenuLeft: this.state.infoMenuLeft,
+      infoMenuTop: this.state.infoMenuTop,
+      infoMenuSlide: this.state.infoOpen ? 'translateY(0)' : 'translateY(-6px)',
       mobileInfoOpen: this.state.mobileInfoOpen,
       mobileInfoCaretTransform: this.state.mobileInfoOpen ? 'rotate(180deg)' : 'rotate(0deg)',
       infoItems: [

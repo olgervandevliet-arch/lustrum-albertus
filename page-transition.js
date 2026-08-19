@@ -43,7 +43,9 @@
     if (/^https?:\/\//i.test(href)) {
       try { if (new URL(href).origin !== location.origin) return false; } catch (e) { return false; }
     }
-    return href === '/' || /\.dc\.html($|[?#])/.test(href);
+    // zowel de schone routes (/faq) als de rauwe bestandsnamen (FAQ.dc.html, voor het geval die
+    // ergens direct gebruikt worden) tellen als interne pagina
+    return href === '/' || /^\/[a-z0-9-]+\/?($|[?#])/i.test(href) || /\.dc\.html($|[?#])/.test(href);
   };
 
   /* ---------- stage-modus: alleen doorgeven aan het bovenliggende venster ---------- */
@@ -65,7 +67,22 @@
       if (!relay(a.getAttribute('href'))) window.location.href = a.getAttribute('href');
     }, true);
     try { document.documentElement.style.background = '#4557A4'; } catch (e) {}
-    window.__pageTransition = { go: (d) => { if (!relay(d)) window.location.href = d; } };
+
+    // de host stuurt een bericht zodra het gordijn deze pagina volledig heeft onthuld — pas dan
+    // mogen intro-animaties (zoals vallende letters) starten; anders spelen ze af terwijl dit
+    // iframe nog verborgen is en zijn ze allang klaar tegen de tijd dat het gordijn opent
+    let revealed = false;
+    const revealCbs = [];
+    window.addEventListener('message', (e) => {
+      if (e.data === 'pt:revealed' && e.source === window.parent) {
+        revealed = true;
+        revealCbs.splice(0).forEach((cb) => cb());
+      }
+    });
+    window.__pageTransition = {
+      go: (d) => { if (!relay(d)) window.location.href = d; },
+      onRevealed: (cb) => { if (revealed) cb(); else revealCbs.push(cb); },
+    };
     return;
   }
 
@@ -260,6 +277,11 @@
         svg.style.pointerEvents = 'none';
         apply(0);
         busy = false;
+        // laat de nieuwe pagina weten dat het gordijn nu echt weg is, zodat intro-animaties
+        // daar (bv. vallende letters op Home) nu pas mogen starten
+        if (stage && stage.contentWindow) {
+          try { stage.contentWindow.postMessage('pt:revealed', '*'); } catch (e) {}
+        }
       },
     });
   };
@@ -325,5 +347,7 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bootOnce, { once: true });
   else bootOnce();
 
-  window.__pageTransition = { go };
+  // op het topvenster is er nooit een verborgen wachttijd te overbruggen (dat speelt alleen in het
+  // stage-iframe hierboven), dus hier meteen vuren
+  window.__pageTransition = { go, onRevealed: (cb) => cb() };
 })();

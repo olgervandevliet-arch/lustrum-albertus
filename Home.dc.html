@@ -116,7 +116,7 @@
 
   <section data-screen-label="Laatste video's" style="position: relative; background: #4557A4; padding: clamp(70px, 9vw, 130px) 0 clamp(60px, 7vw, 110px);">
     <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 6vw; margin-bottom: clamp(34px, 4vw, 60px);">
-      <h2 style="margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(44px, 7vw, 104px); line-height: 1; letter-spacing: -0.025em; color: #BFF7F7;">Laatste video’s</h2>
+      <h2 data-title-reveal="1" style="margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(44px, 7vw, 104px); line-height: 1; letter-spacing: -0.025em; color: #BFF7F7;">Laatste video’s</h2>
       <div style="display: flex; gap: 10px; flex: 0 0 auto;">
         <button type="button" aria-label="Vorige" onClick="{{ scrollPrev }}" style="display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #BFF7F7; cursor: pointer; font-size: 20px;" style-hover="background: rgba(255,255,255,0.1);">
           <i class="ph ph-arrow-left"></i>
@@ -128,18 +128,41 @@
     </div>
     <div ref="{{ trackRef }}" data-video-track="1" style="display: flex; gap: clamp(16px, 1.6vw, 26px); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 6vw; scrollbar-width: none; padding: 0 6vw 24px;">
       <sc-for list="{{ videos }}" as="v" hint-placeholder-count="4">
-        <article style="scroll-snap-align: start; flex: 0 0 auto; width: clamp(280px, 26vw, 400px); padding: 12px 12px 6px; border-radius: 14px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.14);" style-hover="background: rgba(255,255,255,0.18);">
-          <div style="position: relative; aspect-ratio: 16 / 11; border-radius: 8px; overflow: hidden; background-color: #6E86C4; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.14) 0 12px, rgba(255,255,255,0) 12px 24px);">
-            <div style="position: absolute; left: 12px; bottom: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.72);">videostill 16:10</div>
-            <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 54px; height: 54px; border-radius: 50%; background: #BFF7F7; display: grid; place-items: center; box-shadow: 0 14px 30px -18px rgba(10,20,50,0.7);">
-              <span style="display: block; width: 0; height: 0; margin-left: 4px; border-left: 15px solid #3B4C99; border-top: 10px solid transparent; border-bottom: 10px solid transparent;"></span>
+        <sc-if value="{{ v.available }}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{ v.onOpen }}" style="text-align: left; cursor: pointer; scroll-snap-align: start; flex: 0 0 auto; width: clamp(280px, 26vw, 400px); padding: 12px 12px 6px; border-radius: 14px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.14);" style-hover="background: rgba(255,255,255,0.18);">
+            <div style="position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background-color: #6E86C4;">
+              <img src="{{ v.thumbnail }}" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+              <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 54px; height: 54px; border-radius: 50%; background: #BFF7F7; display: grid; place-items: center; box-shadow: 0 14px 30px -18px rgba(10,20,50,0.7);">
+                <span style="display: block; width: 0; height: 0; margin-left: 4px; border-left: 15px solid #3B4C99; border-top: 10px solid transparent; border-bottom: 10px solid transparent;"></span>
+              </div>
             </div>
-          </div>
-          <div style="padding: 12px 2px 10px; font-family: 'Inter Tight', sans-serif; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #E8F9FF;">{{ v.title }}</div>
-        </article>
+            <div style="padding: 12px 2px 10px; font-family: 'Inter Tight', sans-serif; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: #E8F9FF;">{{ v.title }}</div>
+          </button>
+        </sc-if>
+        <sc-if value="{{ v.comingSoon }}" hint-placeholder-val="{{ false }}">
+          <article style="scroll-snap-align: start; flex: 0 0 auto; width: clamp(280px, 26vw, 400px); padding: 12px 12px 6px; border-radius: 14px; background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.2);">
+            <div style="position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #BFF7F7; background: rgba(191,247,247,0.12); padding: 6px 12px; border-radius: 999px;">Coming soon</span>
+            </div>
+            <div style="padding: 12px 2px 10px; font-family: 'Inter Tight', sans-serif; font-size: clamp(17px, 1.4vw, 21px); font-weight: 600; color: rgba(232,249,255,0.4);">Binnenkort beschikbaar</div>
+          </article>
+        </sc-if>
       </sc-for>
     </div>
   </section>
+
+  <sc-if value="{{ openVideoUrl }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeVideo }}" style="position: fixed; inset: 0; z-index: 300; background: rgba(11,15,35,0.88); display: flex; align-items: center; justify-content: center; padding: 5vw;">
+      <div style="position: relative; width: min(1100px, 92vw);" onClick="{{ stopPropagation }}">
+        <button type="button" aria-label="Sluiten" onClick="{{ closeVideo }}" style="position: absolute; right: 0; bottom: 100%; margin-bottom: 12px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: #FFFFFF; font-size: 18px; display: grid; place-items: center; cursor: pointer;" style-hover="background: rgba(255,255,255,0.16);">
+          <i class="ph ph-x"></i>
+        </button>
+        <div style="position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000000; box-shadow: 0 30px 80px -20px rgba(0,0,0,0.6);">
+          <iframe src="{{ openVideoUrl }}?autoplay=1" title="Video" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="1"></iframe>
+        </div>
+      </div>
+    </div>
+  </sc-if>
 
   <dc-import name="Footer" hint-size="100%,360px"></dc-import>
 </div>
@@ -147,8 +170,11 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;targetDate&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2027-08-18T20:00:00&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Countdown&quot;},&quot;pinScreens&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:4,&quot;step&quot;:0.25,&quot;unit&quot;:&quot; schermen&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Scroll&quot;},&quot;showAnnouncement&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Header&quot;},&quot;showPreloader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preloader&quot;}}">
 class Component extends DCLogic {
-  state = { d: 365, h: 7, m: 50, s: 31, revealing: false };
+  state = { d: 365, h: 7, m: 50, s: 31, revealing: false, openVideoUrl: null };
   trackRef = React.createRef();
+
+  openVideo = (embedUrl) => this.setState({ openVideoUrl: embedUrl });
+  closeVideo = () => this.setState({ openVideoUrl: null });
 
   scrollPrev = () => {
     const el = this.trackRef.current;
@@ -181,6 +207,41 @@ class Component extends DCLogic {
     this.timer = setInterval(this.tick, 1000);
     this.waitForGsap();
     this.waitForGsapPreloader();
+    this.waitForSplit();
+  }
+
+  waitForSplit(tries = 0) {
+    if (window.gsap && window.SplitText && window.ScrollTrigger) return this.runTitleReveal();
+    if (tries > 120) return;
+    setTimeout(() => this.waitForSplit(tries + 1), 60);
+  }
+
+  // zelfde stagger-intro als de LustrumAlbertusXXVI-titel, voor overige grote titels op de
+  // pagina (bv. "Laatste video's") die niet aan het scroll-gestuurde hero-systeem hangen.
+  // "Laatste video's" staat onder de vouw (na de 300vh hero) — dus i.p.v. meteen bij het laden af
+  // te spelen (waar niemand het ziet), triggert dit pas als de sectie echt in beeld scrollt
+  runTitleReveal() {
+    const els = document.querySelectorAll('[data-title-reveal]');
+    if (!els.length) return;
+    const gsap = window.gsap;
+    const setup = () => {
+      els.forEach((el) => {
+        el.style.overflow = 'hidden';
+        const split = new window.SplitText(el, { type: 'chars' });
+        gsap.set(split.chars, { opacity: 0, yPercent: 120 });
+        const play = () => {
+          gsap.killTweensOf(split.chars);
+          gsap.to(split.chars, { opacity: 1, yPercent: 0, duration: 0.5, stagger: 0.02, ease: 'power3.out' });
+        };
+        const reset = () => {
+          gsap.killTweensOf(split.chars);
+          gsap.set(split.chars, { opacity: 0, yPercent: 120 });
+        };
+        window.ScrollTrigger.create({ trigger: el, start: 'top 85%', onEnter: play, onEnterBack: play, onLeave: reset, onLeaveBack: reset });
+      });
+    };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(setup);
+    else setup();
   }
 
   waitForGsapPreloader(tries = 0) {
@@ -335,15 +396,23 @@ class Component extends DCLogic {
       }
     };
 
-    // letters vallen pas als de preloader weg is (of meteen als er geen preloader is) — het vangnet wacht mee tot dat moment
-    if (preloaderActive) {
-      this.startLetterIntro = () => {
-        armSafety();
-        startLetterIntro();
-      };
-    } else {
+    // letters vallen pas als de preloader weg is (of meteen als er geen preloader is) — het vangnet wacht mee tot dat moment.
+    // daarnaast: als deze pagina via een page-transition binnenkomt, laadt hij eerst onzichtbaar in
+    // het verborgen stage-iframe — zonder deze extra wachtstap zou de val-animatie daar al
+    // afgerond zijn tegen de tijd dat het gordijn opent. onRevealed(...) wacht op dat sein (en vuurt
+    // meteen als er geen page-transition-context is, bv. bij een verse paginalading).
+    const releaseLetters = () => {
       armSafety();
       startLetterIntro();
+    };
+    const waitForReveal = (fn) => {
+      if (window.__pageTransition && window.__pageTransition.onRevealed) window.__pageTransition.onRevealed(fn);
+      else fn();
+    };
+    if (preloaderActive) {
+      this.startLetterIntro = () => waitForReveal(releaseLetters);
+    } else {
+      waitForReveal(releaseLetters);
     }
 
     // scroll: alles schuift omhoog uit beeld terwijl het beeld stil blijft staan
@@ -421,11 +490,19 @@ class Component extends DCLogic {
       h0: h[0], h1: h[1],
       m0: m[0], m1: m[1],
       s0: s[0], s1: s[1],
+      openVideoUrl: this.state.openVideoUrl,
+      closeVideo: this.closeVideo,
+      stopPropagation: (e) => e.stopPropagation(),
       videos: [
-        { title: 'Thema bekendmaking' },
-        { title: 'Kleuren bekendmaking' },
-        { title: 'Paketten bekendmaking' },
-        { title: 'Thema bekendmaking' },
+        {
+          available: true,
+          title: 'Spaarplannen',
+          thumbnail: 'https://img.youtube.com/vi/_9Bqm_jLp-s/hqdefault.jpg',
+          onOpen: () => this.openVideo('https://www.youtube.com/embed/_9Bqm_jLp-s'),
+        },
+        { comingSoon: true },
+        { comingSoon: true },
+        { comingSoon: true },
       ],
     };
   }

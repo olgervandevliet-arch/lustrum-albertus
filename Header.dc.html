@@ -21,27 +21,27 @@
 </helmet>
 <div style="font-family: 'Inter', system-ui, sans-serif;">
   <sc-if value="{{ barOpen }}" hint-placeholder-val="{{ true }}">
-    <div ref="{{ barRef }}" style="position: relative; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px 8px; background: #3B4C99; color: #DCEAFF; font-size: clamp(12px, 3vw, 14px); font-weight: 500; letter-spacing: 0.005em; padding: 12px clamp(40px, 10vw, 56px); text-align: center; border-bottom: 1px solid #677BC0">
+    <div ref="{{ barRef }}" style="position: relative; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px 8px; background: #3B4C99; color: #FFFFFF; font-size: clamp(12px, 3vw, 14px); font-weight: 500; letter-spacing: 0.005em; padding: 12px clamp(40px, 10vw, 56px); text-align: center; border-bottom: 1px solid #677BC0">
       <span>Volg ons op Instagram voor de laatste updates.</span>
-      <a href="https://www.instagram.com/lustrumalbertus/" style="color: #FFFFFF; text-decoration: underline; text-underline-offset: 3px; font-weight: 600;">Naar instagram &gt;</a>
+      <a href="https://www.instagram.com/lustrumalbertus/" target="_blank" rel="noopener" style="color: #FFFFFF; text-decoration: underline; text-underline-offset: 3px; font-weight: 500;">Naar instagram &gt;</a>
       <button type="button" onClick="{{ closeBar }}" aria-label="Sluiten" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; display: grid; place-items: center; background: transparent; border: 0; cursor: pointer; color: #DCEAFF; font-size: 18px; line-height: 1; padding: 0;" style-hover="color: #FFFFFF;"><i class="ph ph-x"></i></button>
     </div>
   </sc-if>
-  <div style="position: fixed; top: 0; left: 0; width: 100%; z-index: 80; display: flex; justify-content: center; padding: 18px 4vw 0; padding-top: {{ pillTop }}; box-sizing: border-box; transform: {{ headerTransform }}; transition: transform 0.4s ease, padding-top 0.3s ease;">
-    <div ref="{{ navRef }}" onMouseEnter="{{ onHoverOpen }}" onMouseLeave="{{ onHoverClose }}" style="display: flex; flex-direction: column; height: 64px; border-radius: 999px; background: linear-gradient(180deg, rgba(20,30,70,0.42), rgba(20,30,70,0.28)); border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.18); width: min(400px, 92vw); overflow: hidden; will-change: height, width; border-radius: {{ pillRadius }};">
+  <div style="position: fixed; top: 0; left: 0; width: 100%; z-index: 80; display: flex; justify-content: center; padding: 18px 4vw 0; padding-top: {{ pillTop }}; box-sizing: border-box; transform: {{ headerTransform }}; transition: transform 0.4s ease, padding-top 0.3s ease; pointer-events: none;">
+    <div ref="{{ navRef }}" onMouseEnter="{{ onHoverOpen }}" onMouseLeave="{{ onHoverClose }}" style="display: flex; flex-direction: column; height: 64px; border-radius: 999px; background: linear-gradient(180deg, rgba(20,30,70,0.42), rgba(20,30,70,0.28)); border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.18); width: min(400px, 92vw); overflow: hidden; will-change: height, width; border-radius: {{ pillRadius }}; pointer-events: auto;">
       <div style="display: flex; align-items: center; justify-content: space-between; gap: clamp(10px, 2vw, 24px); height: 64px; flex: 0 0 64px; padding: 0 clamp(16px, 4vw, 26px); padding-left: clamp(24px, 4vw, 32px); padding-right: clamp(24px, 4vw, 32px)">
-        <a href="Home.dc.html" onClick="{{ onLogoClick }}" data-pt-link="1" style="display: flex; align-items: center; gap: 9px; color: #FFFFFF; text-decoration: none; flex: 0 0 auto;">
+        <a href="/" onClick="{{ onLogoClick }}" data-pt-link="1" style="display: flex; align-items: center; gap: 9px; color: #FFFFFF; text-decoration: none; flex: 0 0 auto;">
           <span data-logo-label="1" style="display: block; font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: 600; line-height: 1.12; letter-spacing: 0.01em; text-align: right; opacity: 0.95; white-space: nowrap;">Lustrum<br>Albertus</span>
           <span style="font-family: 'Inter Tight', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -0.01em; line-height: 1;">XXVI</span>
         </a>
-        <nav style="display: flex; align-items: center; gap: clamp(8px, 1.6vw, 22px); flex: {{ navFlex }}; min-width: 0; justify-content: center; opacity: {{ navOpacity }}; white-space: nowrap; overflow: visible;">
-          <div ref="{{ infoRef }}" onMouseEnter="{{ onInfoOpen }}" onMouseLeave="{{ onInfoClose }}" style="position: relative;">
+        <nav style="display: flex; align-items: center; gap: clamp(8px, 1.6vw, 22px); flex: {{ navFlex }}; min-width: 0; justify-content: center; opacity: {{ navOpacity }}; white-space: nowrap; overflow: visible; pointer-events: {{ navPointerEvents }};">
+          <div ref="{{ infoRef }}" onMouseEnter="{{ onInfoOpen }}" onMouseLeave="{{ onInfoClose }}" style="position: relative; border-radius: 8px; padding: 7px 12px; margin: -7px -12px; transition: background 0.15s ease;" style-hover="background: rgba(255,255,255,0.08);">
             <span style="display: flex; align-items: center; gap: 4px; color: #FFFFFF; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500; cursor: default;">Informatie <i class="ph ph-caret-down" style="font-size: 12px; transition: transform 0.2s ease; transform: {{ infoCaretTransform }};"></i></span>
           </div>
-          <a href="Partners.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500;" style-hover="opacity: 0.75;">Partners</a>
-          <a href="FAQ.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500;" style-hover="opacity: 0.75;">FAQ</a>
-          <a href="Contact.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500;" style-hover="opacity: 0.75;">Contact</a>
-          <a href="https://www.instagram.com/lustrumalbertus/" aria-label="Instagram" style="display: grid; place-items: center; width: 26px; height: 26px; color: #FFFFFF; flex: 0 0 auto; font-size: 20px; text-decoration: none;" style-hover="opacity: 0.75;">
+          <a href="/partners" style="color: #FFFFFF; text-decoration: none; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500; padding: 7px 12px; margin: -7px -12px; border-radius: 8px; transition: background 0.15s ease;" style-hover="background: rgba(255,255,255,0.08);">Partners</a>
+          <a href="/faq" style="color: #FFFFFF; text-decoration: none; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500; padding: 7px 12px; margin: -7px -12px; border-radius: 8px; transition: background 0.15s ease;" style-hover="background: rgba(255,255,255,0.08);">FAQ</a>
+          <a href="/contact" style="color: #FFFFFF; text-decoration: none; font-size: clamp(12px, 2.2vw, 14px); font-weight: 500; padding: 7px 12px; margin: -7px -12px; border-radius: 8px; transition: background 0.15s ease;" style-hover="background: rgba(255,255,255,0.08);">Contact</a>
+          <a href="https://www.instagram.com/lustrumalbertus/" target="_blank" rel="noopener" aria-label="Instagram" style="display: grid; place-items: center; width: 26px; height: 26px; color: #FFFFFF; flex: 0 0 auto; font-size: 20px; text-decoration: none;" style-hover="opacity: 0.75;">
             <i class="ph ph-instagram-logo"></i>
           </a>
         </nav>
@@ -74,7 +74,7 @@
             <i class="ph ph-arrow-right" aria-hidden="true"></i>
           </a>
         </sc-for>
-        <a href="https://www.instagram.com/lustrumalbertus/" style="display: flex; align-items: center; gap: 10px; padding: 18px clamp(28px, 7vw, 40px) 22px clamp(24px, 6vw, 34px); color: #FFFFFF; text-decoration: none; font-family: 'Inter Tight', sans-serif; font-size: clamp(16px, 4.2vw, 19px); font-weight: 500;" style-hover="opacity: 0.8;">
+        <a href="https://www.instagram.com/lustrumalbertus/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 10px; padding: 18px clamp(28px, 7vw, 40px) 22px clamp(24px, 6vw, 34px); color: #FFFFFF; text-decoration: none; font-family: 'Inter Tight', sans-serif; font-size: clamp(16px, 4.2vw, 19px); font-weight: 500;" style-hover="opacity: 0.8;">
           <i class="ph-bold ph-instagram-logo"></i>
           <span>Volg ons op Instagram</span>
         </a>
@@ -116,7 +116,7 @@ class Component extends DCLogic {
     // beginbreedte wordt hier gezet; daarna is de gsap-tween de enige die width aanpast,
     // zodat een re-render de bouncy animatie niet meer overschrijft
     const el = this.navRef.current;
-    if (el) el.style.width = Math.min(this.isMobile() ? 240 : 400, window.innerWidth * 0.92) + 'px';
+    if (el) el.style.width = Math.min(this.isMobile() ? 240 : 400, window.innerWidth * (this.isMobile() ? 0.82 : 0.92)) + 'px';
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -152,6 +152,9 @@ class Component extends DCLogic {
   onInfoOpen = () => {
     // submenu rendert los van de pill (die overflow: hidden heeft voor de mobiele accordion-animatie),
     // dus positie wordt gemeten en als position: fixed toegepast zodat hij nooit wordt afgesneden
+    // alleen desktop: op mobiel gebruiken we het accordion-menu (toggleMobileInfo), en sommige
+    // mobiele browsers vuren onMouseEnter alsnog na een tap
+    if (this.isMobile()) return;
     clearTimeout(this.infoCloseTimer);
     const r = this.infoRef.current ? this.infoRef.current.getBoundingClientRect() : null;
     this.setState({
@@ -181,8 +184,8 @@ class Component extends DCLogic {
 
   onLogoClick = (e) => {
     e.preventDefault();
-    if (window.__pageTransition) window.__pageTransition.go('Home.dc.html');
-    else window.location.href = 'Home.dc.html';
+    if (window.__pageTransition) window.__pageTransition.go('/');
+    else window.location.href = '/';
   };
 
   toggleOpen = () => {
@@ -209,14 +212,14 @@ class Component extends DCLogic {
       gsap.set(el, { borderRadius: 32 });
       if (this.state.open && !this.listRef.current) return;
       if (this.state.open) {
-        gsap.to(el, { height: 64 + listH, width: Math.min(400, window.innerWidth * 0.92), duration: 0.85, ease: 'elastic.out(1, 0.55)' });
+        gsap.to(el, { height: 64 + listH, width: Math.min(400, window.innerWidth * 0.82), duration: 0.85, ease: 'elastic.out(1, 0.55)' });
       } else {
-        gsap.to(el, { height: 64, width: Math.min(240, window.innerWidth * 0.92), duration: 0.7, ease: 'elastic.out(1, 0.6)' });
+        gsap.to(el, { height: 64, width: Math.min(240, window.innerWidth * 0.82), duration: 0.7, ease: 'elastic.out(1, 0.6)' });
       }
       return;
     }
     if (this.state.open) {
-      const full = Math.min(window.innerWidth * 0.94, 1040);
+      const full = Math.min(window.innerWidth * 0.7, 760);
       gsap.to(el, { width: full, duration: 0.75, ease: 'elastic.out(1, 0.65)' });
     } else {
       const closed = Math.min(400, window.innerWidth * 0.92);
@@ -243,6 +246,7 @@ class Component extends DCLogic {
       onHoverClose: this.onHoverClose,
       navOpacity: desktopOpen ? 1 : 0,
       navFlex: desktopOpen ? '1 1 auto' : '0 0 0px',
+      navPointerEvents: desktopOpen ? 'auto' : 'none',
       desktopOpen,
       mobileOpen: mobileOpen ? 1 : 0,
       pillRadius: mobile ? '32px' : '999px',
@@ -264,16 +268,16 @@ class Component extends DCLogic {
       mobileInfoOpen: this.state.mobileInfoOpen,
       mobileInfoCaretTransform: this.state.mobileInfoOpen ? 'rotate(180deg)' : 'rotate(0deg)',
       infoItems: [
-        { label: 'Pakketten', href: 'Pakketten.dc.html', comingSoon: false },
-        { label: 'Kleuren', href: 'Kleuren.dc.html', comingSoon: false },
-        { label: 'Thema', href: 'Thema.dc.html', comingSoon: true },
-        { label: 'Terrein', href: 'Terrein.dc.html', comingSoon: true },
-        { label: 'Programma', href: 'Programma.dc.html', comingSoon: true },
+        { label: 'Pakketten', href: '/pakketten', comingSoon: false },
+        { label: 'Kleuren', href: '/kleuren', comingSoon: false },
+        { label: 'Thema', href: '/thema', comingSoon: true },
+        { label: 'Terrein', href: '/terrein', comingSoon: true },
+        { label: 'Programma', href: '/programma', comingSoon: true },
       ],
       mobileItems: [
-        { label: 'Partners', href: 'Partners.dc.html' },
-        { label: 'FAQ', href: 'FAQ.dc.html' },
-        { label: 'Contact', href: 'Contact.dc.html' },
+        { label: 'Partners', href: '/partners' },
+        { label: 'FAQ', href: '/faq' },
+        { label: 'Contact', href: '/contact' },
       ],
     };
   }

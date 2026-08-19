@@ -3,6 +3,14 @@
   "buildCommand": null,
   "outputDirectory": null,
   "rewrites": [
-    { "source": "/", "destination": "/Home.dc.html" }
+    { "source": "/", "destination": "/Home.dc.html" },
+    { "source": "/pakketten", "destination": "/Pakketten.dc.html" },
+    { "source": "/partners", "destination": "/Partners.dc.html" },
+    { "source": "/thema", "destination": "/Thema.dc.html" },
+    { "source": "/terrein", "destination": "/Terrein.dc.html" },
+    { "source": "/programma", "destination": "/Programma.dc.html" },
+    { "source": "/kleuren", "destination": "/Kleuren.dc.html" },
+    { "source": "/faq", "destination": "/FAQ.dc.html" },
+    { "source": "/contact", "destination": "/Contact.dc.html" }
   ]
 }

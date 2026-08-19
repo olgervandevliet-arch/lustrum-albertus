@@ -30,7 +30,7 @@
   <div style="position: fixed; top: 0; left: 0; width: 100%; z-index: 80; display: flex; justify-content: center; padding: 18px 4vw 0; padding-top: {{ pillTop }}; box-sizing: border-box; transform: {{ headerTransform }}; transition: transform 0.4s ease, padding-top 0.3s ease;">
     <div ref="{{ navRef }}" onMouseEnter="{{ onHoverOpen }}" onMouseLeave="{{ onHoverClose }}" style="display: flex; flex-direction: column; height: 64px; border-radius: 999px; background: linear-gradient(180deg, rgba(20,30,70,0.42), rgba(20,30,70,0.28)); border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.18); width: min(400px, 92vw); overflow: hidden; will-change: height, width; border-radius: {{ pillRadius }};">
       <div style="display: flex; align-items: center; justify-content: space-between; gap: clamp(10px, 2vw, 24px); height: 64px; flex: 0 0 64px; padding: 0 clamp(16px, 4vw, 26px); padding-left: clamp(24px, 4vw, 32px); padding-right: clamp(24px, 4vw, 32px)">
-        <a href="/" onClick="{{ onLogoClick }}" data-pt-link="1" style="display: flex; align-items: center; gap: 9px; color: #FFFFFF; text-decoration: none; flex: 0 0 auto;">
+        <a href="Home.dc.html" onClick="{{ onLogoClick }}" data-pt-link="1" style="display: flex; align-items: center; gap: 9px; color: #FFFFFF; text-decoration: none; flex: 0 0 auto;">
           <span data-logo-label="1" style="display: block; font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: 600; line-height: 1.12; letter-spacing: 0.01em; text-align: right; opacity: 0.95; white-space: nowrap;">Lustrum<br>Albertus</span>
           <span style="font-family: 'Inter Tight', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -0.01em; line-height: 1;">XXVI</span>
         </a>
@@ -57,9 +57,14 @@
         </button>
         <sc-if value="{{ mobileInfoOpen }}" hint-placeholder-val="{{ false }}">
           <sc-for list="{{ infoItems }}" as="item" hint-placeholder-count="4">
-            <a href="{{ item.href }}" style="display: flex; align-items: center; justify-content: space-between; padding: 14px clamp(28px, 7vw, 40px) 14px clamp(40px, 10vw, 52px); color: #DCEAFF; text-decoration: none; font-family: 'Inter Tight', sans-serif; font-size: clamp(14px, 3.8vw, 17px); font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.1);" style-hover="opacity: 0.8;">
-              <span>{{ item.label }}</span>
-              <i class="ph ph-arrow-right" aria-hidden="true"></i>
+            <a href="{{ item.href }}" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px clamp(28px, 7vw, 40px) 14px clamp(40px, 10vw, 52px); color: #DCEAFF; text-decoration: none; font-family: 'Inter Tight', sans-serif; font-size: clamp(14px, 3.8vw, 17px); font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.1);" style-hover="opacity: 0.8;">
+              <span style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <span>{{ item.label }}</span>
+                <sc-if value="{{ item.comingSoon }}" hint-placeholder-val="{{ false }}">
+                  <span style="flex: 0 0 auto; font-size: 10px; font-weight: 600; letter-spacing: 0.02em; color: #BFF7F7; background: rgba(191,247,247,0.12); padding: 3px 7px; border-radius: 999px; white-space: nowrap;">Coming soon</span>
+                </sc-if>
+              </span>
+              <i class="ph ph-arrow-right" aria-hidden="true" style="flex: 0 0 auto;"></i>
             </a>
           </sc-for>
         </sc-if>
@@ -75,11 +80,17 @@
         </a>
       </div>
     </div>
-    <div onMouseEnter="{{ onInfoOpen }}" onMouseLeave="{{ onInfoClose }}" style="position: fixed; left: {{ infoMenuLeft }}; top: {{ infoMenuTop }}; transform: translateX(-50%) {{ infoMenuSlide }}; min-width: 170px; border-radius: 14px; background: linear-gradient(180deg, rgba(20,30,70,0.94), rgba(20,30,70,0.9)); border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(20px); padding: 8px; display: flex; flex-direction: column; opacity: {{ infoMenuOpacity }}; pointer-events: {{ infoMenuPointer }}; transition: opacity 0.2s ease, transform 0.2s ease; z-index: 90;">
-      <a href="Pakketten.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Pakketten</a>
-      <a href="Programma.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Programma</a>
-      <a href="Thema.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Thema</a>
-      <a href="Terrein.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">Terrein</a>
+    <div onMouseEnter="{{ onDropdownEnter }}" onMouseLeave="{{ onDropdownLeave }}" style="position: fixed; left: {{ infoMenuLeft }}; top: {{ infoMenuTop }}; transform: translateX(-50%); padding-top: 12px; opacity: {{ infoMenuOpacity }}; pointer-events: {{ infoMenuPointer }}; transition: opacity 0.2s ease; z-index: 90;">
+      <div style="min-width: 190px; border-radius: 14px; background: linear-gradient(180deg, rgba(20,30,70,0.94), rgba(20,30,70,0.9)); border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(20px); padding: 8px; display: flex; flex-direction: column; transform: {{ infoMenuSlide }}; transition: transform 0.2s ease;">
+        <sc-for list="{{ infoItems }}" as="item" hint-placeholder-count="4">
+          <a href="{{ item.href }}" style="display: flex; align-items: center; gap: 8px; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500; padding: 9px 12px; border-radius: 8px;" style-hover="background: rgba(255,255,255,0.1);">
+            <span>{{ item.label }}</span>
+            <sc-if value="{{ item.comingSoon }}" hint-placeholder-val="{{ false }}">
+              <span style="flex: 0 0 auto; font-size: 10px; font-weight: 600; letter-spacing: 0.02em; color: #BFF7F7; background: rgba(191,247,247,0.12); padding: 3px 7px; border-radius: 999px; white-space: nowrap;">Coming soon</span>
+            </sc-if>
+          </a>
+        </sc-for>
+      </div>
     </div>
   </div>
 </div>
@@ -115,6 +126,7 @@ class Component extends DCLogic {
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll);
     window.removeEventListener('resize', this.measureBar);
+    clearTimeout(this.infoCloseTimer);
   }
 
   measureBar = () => {
@@ -140,22 +152,37 @@ class Component extends DCLogic {
   onInfoOpen = () => {
     // submenu rendert los van de pill (die overflow: hidden heeft voor de mobiele accordion-animatie),
     // dus positie wordt gemeten en als position: fixed toegepast zodat hij nooit wordt afgesneden
+    clearTimeout(this.infoCloseTimer);
     const r = this.infoRef.current ? this.infoRef.current.getBoundingClientRect() : null;
     this.setState({
       infoOpen: true,
       infoMenuLeft: (r ? r.left + r.width / 2 : 0) + 'px',
-      infoMenuTop: (r ? r.bottom + 12 : 0) + 'px',
+      infoMenuTop: (r ? r.bottom : 0) + 'px',
     });
   };
-  onInfoClose = () => this.setState({ infoOpen: false });
+  onInfoClose = () => {
+    clearTimeout(this.infoCloseTimer);
+    this.setState({ infoOpen: false });
+  };
+  // het dropdown-element staat los van de pill (buiten de overflow: hidden), dus hoveren erover
+  // moet ook de pill zelf open houden — anders sluit de pill zodra de muis de "Informatie"
+  // trigger verlaat richting het dropdown-menu eronder
+  onDropdownEnter = () => {
+    this.onInfoOpen();
+    if (!this.isMobile()) this.setState({ open: true }, () => this.animate());
+  };
+  onDropdownLeave = () => {
+    this.onInfoClose();
+    this.onHoverClose();
+  };
   toggleMobileInfo = () => {
     this.setState((s) => ({ mobileInfoOpen: !s.mobileInfoOpen }), () => this.animate());
   };
 
   onLogoClick = (e) => {
     e.preventDefault();
-    if (window.__pageTransition) window.__pageTransition.go('/');
-    else window.location.href = '/';
+    if (window.__pageTransition) window.__pageTransition.go('Home.dc.html');
+    else window.location.href = 'Home.dc.html';
   };
 
   toggleOpen = () => {
@@ -225,19 +252,23 @@ class Component extends DCLogic {
       infoRef: this.infoRef,
       onInfoOpen: this.onInfoOpen,
       onInfoClose: this.onInfoClose,
+      onDropdownEnter: this.onDropdownEnter,
+      onDropdownLeave: this.onDropdownLeave,
       infoCaretTransform: this.state.infoOpen ? 'rotate(180deg)' : 'rotate(0deg)',
       infoMenuOpacity: this.state.infoOpen ? 1 : 0,
       infoMenuPointer: this.state.infoOpen ? 'auto' : 'none',
       infoMenuLeft: this.state.infoMenuLeft,
       infoMenuTop: this.state.infoMenuTop,
       infoMenuSlide: this.state.infoOpen ? 'translateY(0)' : 'translateY(-6px)',
+      toggleMobileInfo: this.toggleMobileInfo,
       mobileInfoOpen: this.state.mobileInfoOpen,
       mobileInfoCaretTransform: this.state.mobileInfoOpen ? 'rotate(180deg)' : 'rotate(0deg)',
       infoItems: [
-        { label: 'Pakketten', href: 'Pakketten.dc.html' },
-        { label: 'Programma', href: 'Programma.dc.html' },
-        { label: 'Thema', href: 'Thema.dc.html' },
-        { label: 'Terrein', href: 'Terrein.dc.html' },
+        { label: 'Pakketten', href: 'Pakketten.dc.html', comingSoon: false },
+        { label: 'Kleuren', href: 'Kleuren.dc.html', comingSoon: false },
+        { label: 'Thema', href: 'Thema.dc.html', comingSoon: true },
+        { label: 'Terrein', href: 'Terrein.dc.html', comingSoon: true },
+        { label: 'Programma', href: 'Programma.dc.html', comingSoon: true },
       ],
       mobileItems: [
         { label: 'Partners', href: 'Partners.dc.html' },

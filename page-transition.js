@@ -29,6 +29,11 @@
   const easeInOut = (t) => (t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2);
   const easeOut = (t) => 1 - Math.pow(1 - t, 4);
   const easeIn = (t) => t * t * t;
+  // bouncy varianten voor de letter-stagger: lichte overshoot bij binnenkomst, lichte "aanloop"
+  // terug bij vertrek — zelfde tijdvensters, alleen een levendiger curve
+  const BACK_C1 = 1.70158, BACK_C3 = BACK_C1 + 1;
+  const easeOutBack = (t) => 1 + BACK_C3 * Math.pow(t - 1, 3) + BACK_C1 * Math.pow(t - 1, 2);
+  const easeInBack = (t) => BACK_C3 * t * t * t - BACK_C1 * t * t;
 
   const isInternal = (a) => {
     if (!a) return false;
@@ -98,6 +103,20 @@
     return `M0,${top} C 18,${tc} 34,${t} 50,${t} C 66,${t} 82,${tc} 100,${top} L100,${bottom} C 82,${c} 66,${e} 50,${e} C 34,${e} 18,${c} 0,${bottom} Z`;
   };
 
+  // dezelfde band-vorm, maar in echte pixels t.o.v. het venster — nodig om als CSS clip-path op de
+  // (niet-uitgerekte) tekstlaag te zetten, zodat tekst en achtergrond exact dezelfde maskeervorm delen
+  // en nooit meer los van elkaar kunnen lopen
+  const bandPathPx = (p) => {
+    const w = window.innerWidth, h = window.innerHeight;
+    const top = (front(p) / 100) * h;
+    const bottom = top + (BAND / 100) * h;
+    const b = -(bulge(p) / 100) * h;
+    const t = top + b, tc = top + b * 0.6;
+    const e = bottom + b, c = bottom + b * 0.6;
+    const X = (pct) => (pct / 100) * w;
+    return `M${X(0)},${top} C ${X(18)},${tc} ${X(34)},${t} ${X(50)},${t} C ${X(66)},${t} ${X(82)},${tc} ${X(100)},${top} L${X(100)},${bottom} C ${X(82)},${c} ${X(66)},${e} ${X(50)},${e} C ${X(34)},${e} ${X(18)},${c} ${X(0)},${bottom} Z`;
+  };
+
   const build = () => {
     if (svg) return;
     svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -113,11 +132,13 @@
 
     mark = document.createElement('div');
     mark.setAttribute('aria-hidden', 'true');
+    // de zichtbaarheidsgrens van de tekst komt puur uit de clip-path hieronder (zelfde vorm als de
+    // achtergrond, dus nooit uit de pas); de losse letters krijgen daarbinnen nog hun eigen
+    // gestaggerde intro-beweging, puur decoratief, die kan dus nooit meer verkeerd registreren
     mark.style.cssText =
       'position:fixed;inset:0;z-index:401;display:flex;align-items:center;justify-content:center;' +
       'gap:0.02em;pointer-events:none;font-family:"Inter Tight",system-ui,sans-serif;font-weight:800;' +
-      'font-size:clamp(56px,9vw,140px);letter-spacing:-0.01em;color:' + TEXT + ';line-height:1;' +
-      'will-change:transform;transform:translateZ(0);backface-visibility:hidden;';
+      'font-size:clamp(56px,9vw,140px);letter-spacing:-0.01em;color:' + TEXT + ';line-height:1;';
     markLetters = ['X', 'X', 'V', 'I'].map((ch) => {
       const wrap = document.createElement('span');
       wrap.style.cssText = 'display:block;overflow:hidden;';
@@ -131,9 +152,10 @@
     document.documentElement.appendChild(mark);
   };
 
-  const apply = (p) => { if (path) path.setAttribute('d', bandPath(p)); };
-
-  const markPhase = (t, dir) => {
+  // stagger: puur decoratieve intro-beweging per letter, onafhankelijk van de mask hieronder —
+  // registreert dus nooit verkeerd t.o.v. de achtergrond, want de zichtbaarheidsgrens komt alleen
+  // uit de clip-path
+  const staggerLetters = (t, dir) => {
     const step = 0.13;
     const span = Math.max(0.2, 1 - (markLetters.length - 1) * step);
     markLetters.forEach((el, i) => {
@@ -141,6 +163,18 @@
       const eased = dir === 1 ? easeOut(local) : easeIn(local);
       el.style.transform = 'translate3d(0,' + (dir === 1 ? 120 * (1 - eased) : -120 * eased) + '%,0)';
     });
+  };
+
+  // tekst en achtergrond delen letterlijk dezelfde vorm voor de zichtbaarheidsgrens: de mask komt
+  // altijd exact overeen met de achtergrondband, dus die kan nooit uit de pas lopen — de stagger
+  // hierboven is losse decoratie daarbinnen
+  const apply = (p) => {
+    if (path) path.setAttribute('d', bandPath(p));
+    if (mark) {
+      const d = bandPathPx(p);
+      mark.style.clipPath = "path('" + d + "')";
+      mark.style.webkitClipPath = "path('" + d + "')";
+    }
   };
 
   const animate = ({ duration, ease, onFrame, onDone }) => {
@@ -192,11 +226,11 @@
       duration: DUR_OUT, ease: easeInOut,
       onFrame: (v, t) => {
         apply(v);
-        markPhase(Math.max(0, Math.min(1, (t - 0.18) / 0.55)), 1);
+        staggerLetters(Math.max(0, Math.min(1, (t - 0.5) / 0.32)), 1);
       },
       onDone: () => {
         apply(1);
-        markPhase(1, 1);
+        staggerLetters(1, 1);
         void document.documentElement.offsetHeight;
         staging.then((frame) => {
           if (!frame) { window.location.href = dest; return; }
@@ -214,12 +248,13 @@
   };
 
   const revealOut = () => {
+    // de letters zijn tijdens go() al binnengekomen (opkomend van onder) — hier alleen nog laten
+    // uitgaan naar boven, niet nog eens laten binnenkomen (dat gaf een dubbele animatie)
     animate({
       duration: DUR_IN, ease: easeInOut,
       onFrame: (v, t) => {
         apply(1 + v);
-        if (t < 0.3) markPhase(t / 0.3, 1);
-        else markPhase(Math.min(1, (t - 0.3) / 0.4), -1);
+        staggerLetters(Math.min(1, t / 0.45), -1);
       },
       onDone: () => {
         svg.style.pointerEvents = 'none';
@@ -234,7 +269,7 @@
     build();
     svg.style.pointerEvents = 'auto';
     apply(1);
-    markPhase(0, 1);
+    staggerLetters(0, 1);
     if (earlyCover) {
       void document.documentElement.offsetHeight;
       earlyCover.remove();
@@ -249,8 +284,8 @@
       duration: DUR_IN, ease: easeInOut,
       onFrame: (v, t) => {
         apply(1 + v);
-        if (t < 0.3) markPhase(t / 0.3, 1);
-        else markPhase(Math.min(1, (t - 0.3) / 0.4), -1);
+        if (t < 0.3) staggerLetters(t / 0.3, 1);
+        else staggerLetters(Math.min(1, (t - 0.3) / 0.4), -1);
         if (page) page.style.transform = `translate3d(0,${90 * (1 - easeOut(t))}px,0)`;
       },
       onDone: () => {

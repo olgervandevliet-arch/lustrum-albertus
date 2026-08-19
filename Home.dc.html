@@ -25,6 +25,10 @@
   ::-webkit-scrollbar { width: 0; height: 8px; }
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 8px; }
   [data-video-track]::-webkit-scrollbar { display: none; }
+  /* GSAP SplitText knipt de titel op in losse letter-spans en negeert daarbij de losse spatie
+     tussen de woorden — dus altijd een vaste breedte reserveren i.p.v. op de tekst-spatie
+     vertrouwen, anders lopen "Lustrum Albertus XXVI" op desktop aan elkaar */
+  [data-title-break] { display: inline-block; width: 0.32em; }
   @media (max-width: 980px) {
     [data-cd-break] { display: block !important; flex-basis: 100% !important; width: 100%; height: 0; }
     [data-title-break] { display: block !important; }
